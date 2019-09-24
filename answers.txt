@@ -1,0 +1,87 @@
+=========================================
+Answers for COMP26120 Lab Exercise 1
+Name: 
+=========================================
+
+Pick one problem from each problem set and for each problem produce two different algorithms.
+For each algorithm produce (1) psuedocode, (2) a correctness explanation, and (3) a complexity
+analysis. The second algorithm should be 'better' than the first. 
+
+See COMPjudge for the full instructions. 
+
+=========================================
+Problem Set 1
+Chosen Problem is X
+
+===================
+Algorithm 1
+------------
+1) Pseudocode
+
+
+
+------------
+2) Correctness Explanation
+
+
+
+------------
+3) Worst Case Complexity Analysis
+
+
+
+===================
+Algorithm 2
+------------
+1) Pseudocode
+
+
+
+------------
+2) Correctness Explanation
+
+
+
+------------
+3) Worst Case Complexity Analysis
+
+
+
+=========================================
+Problem Set 2
+Chosen Problem is X
+
+===================
+Algorithm 1
+------------
+1) Pseudocode
+
+
+
+------------
+2) Correctness Explanation
+
+
+
+------------
+3) Worst Case Complexity Analysis
+
+
+
+===================
+Algorithm 2
+------------
+1) Pseudocode
+
+
+
+------------
+2) Correctness Explanation
+
+
+
+------------
+3) Worst Case Complexity Analysis
+
+
+~                                       
