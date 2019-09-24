@@ -16,7 +16,7 @@ BRANCH=$(git branch | grep "\*" | cut -d ' ' -f 2)
 
 # The remote upstream should already be added in your repository but if it is
 # not there you can add it by running
-# git remote add upstream https://gitlab.cs.man.ac.uk/mbaxjgr2/comp26120-base
+# git remote add upstream https://gitlab.cs.man.ac.uk/mbaxjgr2/comp26120_base
 
 # Get any upstream changes
 git fetch upstream
