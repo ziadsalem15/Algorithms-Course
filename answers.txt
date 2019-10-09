@@ -1,6 +1,6 @@
 =========================================
 Answers for COMP26120 Lab Exercise 1
-Name: 
+Name: Ziad Salem Almenagham
 =========================================
 
 Pick one problem from each problem set and for each problem produce two different algorithms.
@@ -11,77 +11,149 @@ See COMPjudge for the full instructions.
 
 =========================================
 Problem Set 1
-Chosen Problem is X
+Chosen Problem is C
 
 ===================
 Algorithm 1
 ------------
 1) Pseudocode
-
-
+find_GCD_from_u_v (u, v)
+while u doesn't equal v
+    if u > v 
+        u = u - v
+    else 
+        v = v - u
+endwhile
+output : u
 
 ------------
 2) Correctness Explanation
+1st: If u = v then GCD is u as u/v will equal 1 so this is the GCD possible.
 
+2nd: While the two multiples arenot the same, the difference between them 
+must also be a multiple of GCD. So we keep subracting the smallest from the 
+largest until they are equal. This is the GCD.
 
 
 ------------
 3) Worst Case Complexity Analysis
+Best Case = If u = v then we need only one operation.
 
+Worst Case: If v = 1 (find_GCD_from_u_v (u, 1)) so we will need u operations
+to calculate GCD.
 
 
 ===================
 Algorithm 2
 ------------
 1) Pseudocode
-
+find_GCD_from_u_v (u, v)
+while v doesn't equal 0
+    temp = u mod v
+    u = v
+    v = temp
+endwhile 
+output: m
 
 
 ------------
 2) Correctness Explanation
+This is more efficient than the previous one. 
 
 
 
 ------------
 3) Worst Case Complexity Analysis
 
+Two consecutive fibonacci numbers
 
+This is because the remainder when they are divided being the previous 
+Fibonacci number so we will have to go through the whole fibonacci sequence till 
+we reach 0.
+
+Worst Case is log(u)
 
 =========================================
 Problem Set 2
-Chosen Problem is X
+Chosen Problem is F
 
 ===================
 Algorithm 1
 ------------
 1) Pseudocode
 
+word_frequency (W)
+{
+    input = read from list W
+    list[][] = words and their counter saved here
+    
+    while input is not at the end of the W
+        wordFound = false
+         for each word in the list
+            if word[0] == input
+                wordFound = true
+                word[1]++
+        end for
+        if wordFound == false
+            add input to list with count = 1
+    endwhile
+    output : list
+}
+
 
 
 ------------
 2) Correctness Explanation
+Used input to read words from W which will go into a while loop with 
+wordFound = false to check that it is not at th end of W. Iterate over the
+list [][] to check if word is there if it is there then increase its count. 
+Then if wordFound is false add it with currentCount = 1. Do this for the rest 
+of words in W.
+
+If input has reached word n in W it will not re-enter the while loop.
 
 
 
 ------------
 3) Worst Case Complexity Analysis
 
+Worst Case: n^3 where n is the number of words in list W
 
 
 ===================
 Algorithm 2
 ------------
 1) Pseudocode
+word_frequency (W)
+{
+    list[][] = words and their counter saved here
+    sort(W)
+    currentCount = 1
+    for word in W
+        if word != word.next || last word in W
+            add word to list with currentCount
+            currentCount =1
+        else
+            currentCount++
+        
+    endfor
+    output : list
+}
+        
 
 
 
 ------------
 2) Correctness Explanation
+This is more efficient than the previous one.
 
-
-
+list W is sorted. for loop to iterate over list W then check if word not equal 
+next word or it is the last word in list so add word to list with the current 
+count and then reset current count to 1. Else if the next word is the 
+same as this word increase the currentCount by 1. Do this for other words in W.
 ------------
 3) Worst Case Complexity Analysis
 
+n as it will have only one for loop.
 
 ~                                       
