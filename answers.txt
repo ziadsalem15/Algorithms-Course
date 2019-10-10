@@ -53,12 +53,22 @@ while v doesn't equal 0
     u = v
     v = temp
 endwhile 
-output: m
+output: u
 
 
 ------------
 2) Correctness Explanation
 This is more efficient than the previous one. 
+We assume here that u > v as specified in the question
+
+When v = 0,  then GCD(u, 0) = u and we will not go inside the while loop and output is u.
+
+When we try to get GCD(u, v) using the Euclid's Algortithm, we start by u mod v to
+get the remainder of u/v and saved in a temp variable, then set u as current v 
+and set v as the current remaider saved in the temp variable. This works as the difference between u and v will have the same GCD. 
+As if u = k * GCD and v = z * GCD, then as specidied in the question u > x so k > z then u - v = (k - z) * GCD.
+
+Got help from the internet in the mathematics equation.
 
 
 
