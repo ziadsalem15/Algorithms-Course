@@ -26,7 +26,7 @@ int main (int argc, char *argv[])
       argumentCount++;
     }
     // print longest argument
-    printf("Longest Argument is ( %s )\n", argv[longestArg]);
+    printf("%s\n", argv[longestArg]);
     return 0;
   }
   // print error

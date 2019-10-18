@@ -32,7 +32,7 @@ int main(int argc, char **argv)
   if (inputFile == NULL)
   {
     printf("Input file cannot be opened !!\n");
-  } // if 
+  } // if
 
   // while loop to go through the full nukber of characters
   while ((character = getc(inputFile)) != EOF)
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     } // else
   } // while
   // print summary
-  printf("Read %d characters in total, %d converted to upper-case, %d to lower-case\n", totalCharacters, upperToLow, lowerToUP);
+  printf("Read %d characters in total, %d converted to upper-case, %d to lower-case\n", totalCharacters, lowerToUP, upperToLow);
   // close input and output file
   fclose(inputFile);
   fclose(outputFile);
