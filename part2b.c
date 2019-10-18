@@ -49,7 +49,7 @@ int main (int argc, char *argv[])
   {
     if (input > -546.3){
       float celsius = f2c(input);
-      printf("%.2f °C = %.2f°F \n", celsius, input);}
+      printf("%.2f°C = %.2f°F \n", celsius, input);}
     else
     {
       printf("Temperatures below absolute zero");
@@ -62,7 +62,7 @@ int main (int argc, char *argv[])
   {
     if (input > -273.15){
       float fahrenheit = c2f(input);
-      printf("%.2f °C = %.2f °F \n", input, fahrenheit);}
+      printf("%.2f°C = %.2f°F \n", input, fahrenheit);}
     else{
       printf("Temperatures below absolute zero");
       exit(4);
