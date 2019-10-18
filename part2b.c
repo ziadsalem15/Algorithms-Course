@@ -26,13 +26,11 @@ int main (int argc, char *argv[])
   // check if arg = 3
   if (argc != 3)
   {
-    printf("The wrong number of parameters have been supplied");
     exit(1);
   }
   // check c and f
   if (!((strcmp(argv[1], "-f") == 0) || (strcmp(argv[1], "-c")==0)))
   {
-      printf("Failed to supply either -f or -c as the first option");
       exit(2);
 
   }
@@ -40,7 +38,6 @@ int main (int argc, char *argv[])
   sscanf(argv[2], "%f%n", &input, &count);
   if(count != strlen(argv[2]))
   {
-    printf("Malformed number in second parameter");
     exit(3);
   } // if
 
@@ -52,7 +49,6 @@ int main (int argc, char *argv[])
       printf("%.2f°C = %.2f°F \n", celsius, input);}
     else
     {
-      printf("Temperatures below absolute zero");
       exit(4);
     }
 
@@ -64,7 +60,6 @@ int main (int argc, char *argv[])
       float fahrenheit = c2f(input);
       printf("%.2f°C = %.2f°F \n", input, fahrenheit);}
     else{
-      printf("Temperatures below absolute zero");
       exit(4);
     }
   }
