@@ -23,19 +23,19 @@ static void insert(person **p, char *name, int age, int *nextfreeplace)
   // if not exit
   if (p == NULL)
   {
-    exit(-1);
+    exit(1);
   }
   /* put name and age into the next free place in the array parameter here */
-  // put name and age in the next free place in the array parameter
-  //p[*nextfreeplace]->name = name;
+  // put name and age in the next free place in the array parameter by
+  // allocating memory for name
   ptr->name = malloc(sizeof(char) * strlen(name) + 1);
+  // copy contents of name into ptr->name
   strcpy(ptr->name, name);
+  // put age in the next free place
   ptr->age = age;
   p[*nextfreeplace] = ptr;
-  /* modify nextfreeplace here */
   // increase next free place by one to point to next position
   (*nextfreeplace)++;
-
 }
 
 int main(int argc, char **argv)
