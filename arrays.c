@@ -35,6 +35,7 @@ static void insert(person **p, char *name, int age, int *nextfreeplace)
   /* modify nextfreeplace here */
   // increase next free place by one to point to next position
   (*nextfreeplace)++;
+
 }
 
 int main(int argc, char **argv)
@@ -60,6 +61,7 @@ int main(int argc, char **argv)
   // release the memory allocated by malloc
   for (int x = 0; x < HOW_MANY; x++)
   {
+    free(people[x]->name);
     free(people[x]);
   }
   return 0;
