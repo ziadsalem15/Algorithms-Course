@@ -1,0 +1,43 @@
+ISSUE 1:
+
+***Problem: When I checked the current call stack, there was an error in process at line 30 in strcpy
+This is because we didn't allocate memory for work->second.
+Fix: I allocated memory for work->second and set the size to size of char * length of
+work->first + 1 because we need it to be available for every character so size of one character
+* their length.
+
+
+ISSUE 2:
+
+***Problem: We set temp to work.first so in this case we are overriding it because temp and work.first was pointing to same
+memory location.
+Fix: memory allocation for temp just like work.second.
+
+***Problem: Printing is still NULL so this means we are not copying correctly from temp to
+work.second because when we called the method from main we provided the value not reference and the
+method was taking work itself as an argument not a pointer.
+Fix:  We need to provide a pointer to work when we call the method in main so we put the "&"
+operator before it. As a result we need to make the method accept a pointer. Then we
+change every occurrence of work.first to work->first and same for work.second because we are
+now using a pointer to structure.
+
+***Problem: It is only printing one word because we are making two ifs to check if it is lowercase or
+uppercase but we didn't check on spaces for example so when it encounters a space after hELLO
+temp is not updated and it goes out of for loop.
+Fix: Check only for upper characters and if uppercase change to lowercase and then use else
+to encounter lowercase characters and spaces and others.
+
+ISSUE 4:
+***Problem: The problem is that pointer in while loop was pointing to the second character
+so wasn't reading "h" and was starting from E.
+Fix: increment the ptr at the end of while loop instead so it will start  from the first
+character.
+
+ISSUE 5:
+
+***Problem: I have got 1 error in valgrind and 2 memory leaks
+Fix: I did free for both temp and work.second after use to deallocate the memory used
+so that it can be used for other purposes.
+
+***Problem: I got one error in valgrind because we are increasing number of loops by 1 which is memory loss
+Fix: for loop condition should only be over length of work.first.
