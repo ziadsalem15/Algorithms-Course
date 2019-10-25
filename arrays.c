@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 
   /* declare the people array here */
   // person array of size 7
-  person *people[HOW_MANY];
+  struct person *people[HOW_MANY];
   // next free place in array
   int nextfreeplace = 0;
   // for loop which calls insert and gives it 4 arguments
