@@ -23,7 +23,7 @@ static void insert(person **p, char *name, int age, int *nextfreeplace)
   // if not exit
   if (p == NULL)
   {
-    exit(0);
+    exit(-1);
   }
   /* put name and age into the next free place in the array parameter here */
   // put name and age in the next free place in the array parameter
