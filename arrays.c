@@ -21,7 +21,7 @@ static void insert(person **p, char *name, int age, int *nextfreeplace)
   person *ptr = malloc(sizeof(person));
   // check that malloc allocated memory for array
   // if not exit
-  if (p == NULL)
+  if (ptr == NULL)
   {
     exit(1);
   }
