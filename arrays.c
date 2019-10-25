@@ -55,7 +55,7 @@ int main(int argc, char **argv)
   // for loop to print the contents of people array, name and age
   for (int z = 0; z < HOW_MANY; z++)
   {
-    printf("%d : %s is %d\n",z, people[z]->name, people[z]->age);
+    printf("%d: %s is %d\n",z, people[z]->name, people[z]->age);
   }
   // release the memory allocated by malloc
   for (int x = 0; x < HOW_MANY; x++)
