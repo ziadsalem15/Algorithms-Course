@@ -14,15 +14,12 @@
 # find tag name
 BRANCH=$(git branch | grep "\*" | cut -d ' ' -f 2)
 
-# The remote upstream should be added in your repository 
-if ! git config remote.upstream.url > /dev/null; then
-  git remote add upstream https://gitlab.cs.man.ac.uk/mbaxjgr2/comp26120_base.git
-fi
+# In case upstream was previously added wrongly, just delete and re-add 
+git remote remove upstream
+git remote add upstream https://gitlab.cs.man.ac.uk/mbaxjgr2/comp26120_base.git
 
 # Get any upstream changes
 git fetch upstream
 
 # Rebase on top of them (apply them before any local changes)
 git merge upstream/"${BRANCH}"
-
-git push origin "${BRANCH}"
