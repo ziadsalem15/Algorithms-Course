@@ -44,7 +44,7 @@ int main(int argc, char **argv)
   
   while (people != NULL)
   {
-    printf("%s is %d\n", people->name, people->age);
+    printf("Name: %s, age: %d\n", people->name, people->age);
     people = people->next;
     
   }
