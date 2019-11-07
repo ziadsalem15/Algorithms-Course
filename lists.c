@@ -45,10 +45,10 @@ int main(int argc, char **argv)
   while (people != NULL)
   {
     printf("Name: %s, age: %d\n", people->name, people->age);
+    free(people);
     people = people->next;
-    
   }
-  free(people);
+  
 
   return 0;
 }
