@@ -11,7 +11,7 @@ typedef struct person {
   struct person *next;
 } person;
 
-static person* insert(person *p, char *name, int age)
+static person* insert_start(person *p, char *name, int age)
 {
   person *new_person = malloc(sizeof(person));
   // check that malloc allocated memory for array
@@ -26,6 +26,33 @@ static person* insert(person *p, char *name, int age)
   new_person->next = p;
   return new_person;
 }
+static person* insert_end(person *p, char *name, int age)
+{
+  person *new_person_end = malloc(sizeof(person));
+  // check that malloc allocated memory for array
+  // if not exit
+  if (new_person_end == NULL)
+  {
+    exit(1);
+  }
+  new_person_end->name = name;
+  new_person_end->age = age;
+  if (new_person_end == NULL)
+  {
+    new_person_end->next = p;
+    return new_person_end;
+  }
+  else
+  {
+    while (new_person_end->next != NULL)
+      new_person_end = new_person_end->next;
+
+    new_person_end->name = name;
+    new_person_end->age = age;
+    new_person_end->next = p;
+    return new_person_end;
+  }
+}
 
 int main(int argc, char **argv)
 {
@@ -33,22 +60,48 @@ int main(int argc, char **argv)
   /* declare the people array here */
   // person array of size 7
   person *people = NULL;
-
-  // for loop which calls insert and gives it 4 arguments
-  // people array, next name, next age and the next free place in array
-  int i;
-  for (i = 0; i < HOW_MANY; i++)
+  if (argc == 1)
   {
-    people = insert (people, names[i], ages[i]);
+    for (int i = 0; i < HOW_MANY; i++)
+    {
+      people = insert_start(people, names[i], ages[i]);
+    }
   }
-  
+  else if(argc == 2)
+  {
+    if (0 == strcmp(argv[1], "insert_start"))
+    {
+      for (int i = 0; i < HOW_MANY; i++)
+      {
+        people = insert_start(people, names[i], ages[i]);
+      }
+    }
+    else if (0 == strcmp(argv[1], "insert_end"))
+    {
+      for (int i = 0; i < HOW_MANY; i++)
+      {
+        people = insert_end(people, names[i], ages[i]);
+      }
+    }
+    else
+    {
+      fprintf(stderr, "%s\n" , "Wrong Command Line Arguments Used");
+      return 5;
+    }
+  }
+  else
+  {
+    fprintf(stderr, "%s\n" , "Wrong Command Line Arguments Used");
+    return 5;
+  }
+
   while (people != NULL)
   {
     printf("Name: %s, age: %d\n", people->name, people->age);
     free(people);
     people = people->next;
   }
-  
+
 
   return 0;
 }
