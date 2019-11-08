@@ -122,7 +122,7 @@ int main(int argc, char **argv)
       people = insert_start(people, names[i], ages[i]);
     }
   }
-  else if(argc >= 2)
+  else if((argc == 2) || ((argc > 2) && 0 == strcmp(argv[1], "insert_sorted")))
   {
     if (0 == strcmp(argv[1], "insert_start"))
     {
