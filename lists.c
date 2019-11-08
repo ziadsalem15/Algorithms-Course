@@ -56,7 +56,7 @@ static person* insert_end(person *p, char *name, int age)
   }
 
 }
-static person* insert_sorted(person *p, char *name, int age, int (*compare)(person*, person*))
+static person* insert_sorted(person *p, char *name, int age, int (*compare_people)(person*, person*))
 {
   person *new_person_end = malloc(sizeof(person));
   // check that malloc allocated memory for array
@@ -96,13 +96,18 @@ static person* insert_sorted(person *p, char *name, int age, int (*compare)(pers
   }
 
 }
-int compare_people(person* person1, person* person2)
+int compare_people_by_name(person* person1, person* person2)
 {
   if (person1 == NULL || person2 == NULL)
-    exit(1);
+    exit(2);
   return strcmp(person1->name, person2->name);
 }
-
+int compare_people_by_age(person* person1, person* person2)
+{
+  if (person1 == NULL || person2 == NULL)
+    exit(2);
+  return (person1->age - person2->age);
+}
 
 int main(int argc, char **argv)
 {
@@ -117,7 +122,7 @@ int main(int argc, char **argv)
       people = insert_start(people, names[i], ages[i]);
     }
   }
-  else if(argc == 2)
+  else if(argc >= 2)
   {
     if (0 == strcmp(argv[1], "insert_start"))
     {
@@ -135,12 +140,34 @@ int main(int argc, char **argv)
     }
     else if (0 == strcmp(argv[1], "insert_sorted"))
     {
-      int (*compare)(person*, person*);
+      int (*compare_people)(person*, person*);
+      if (argc == 2)
+      {
+        compare_people = &compare_people_by_name;
+      }
+      else if (argc > 3)
+      {
+        fprintf(stderr, "%s\n" , "Wrong Command Line Arguments Used");
+        exit(2);
+      }
+      else if (0 == strcmp(argv[2], "name"))
+      {
+        compare_people = &compare_people_by_name;
+      } // if
+      else if (0 == strcmp(argv[2], "age"))
+      {
+        compare_people = &compare_people_by_age;
+      }
+      else if (0 != strcmp(argv[2], "age") || 0 != strcmp(argv[2], "name"))
+      {
+        fprintf(stderr, "%s\n" , "Wrong Command Line Arguments Used");
+        exit(2);
+      }
+
       for (int i = 0; i < HOW_MANY; i++)
       {
-        people = insert_sorted(people, names[i], ages[i], compare);
+        people = insert_sorted(people, names[i], ages[i], compare_people);
       }
-      //printf("%s\n", people);
     }
     else
     {
