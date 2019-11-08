@@ -37,21 +37,29 @@ static person* insert_end(person *p, char *name, int age)
   }
   new_person_end->name = name;
   new_person_end->age = age;
-  if (new_person_end == NULL)
+
+  person* new_list = malloc(sizeof(person));
+  new_list->name = name;
+  new_list->age = age;
+  new_list->next = NULL;
+
+  if (p == NULL)
   {
-    new_person_end->next = p;
-    return new_person_end;
+    p = new_list;
   }
   else
   {
-    while (new_person_end->next != NULL)
-      new_person_end = new_person_end->next;
+    person* end = p;
+    while (end->next != NULL)
+    {
+      end = end->next;
+    }
 
-    new_person_end->name = name;
-    new_person_end->age = age;
-    new_person_end->next = p;
-    return new_person_end;
+    end->next = new_list;
+
   }
+  return p;
+
 }
 
 int main(int argc, char **argv)
