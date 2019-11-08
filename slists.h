@@ -1,9 +1,24 @@
+typedef enum Staff_or_student
+{
+  staff,// 0
+  student, // 1
+  neither // 2
+} // staff_or_student
+
+// union varibale named extraInfo to add the following info
+typedef union ExtraInfo
+{
+  char *name_of_program;
+  char *staff_room_no;
+} // extraInfo
 // struct person which consists of character pointer name
 //and integer age in years
 // and next used topoint tonext element in linke dlist
 typedef struct person {
   char* name;
   int age;
+  Staff_or_student staff_or_student;
+  union ExtraInfo extraInfo; 
   struct person *next;
 } person;
 
