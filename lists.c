@@ -37,15 +37,11 @@ static person* insert_end(person *p, char *name, int age)
   }
   new_person_end->name = name;
   new_person_end->age = age;
-
-  person* new_list = malloc(sizeof(person));
-  new_list->name = name;
-  new_list->age = age;
-  new_list->next = NULL;
+  new_person_end->next = NULL;
 
   if (p == NULL)
   {
-    p = new_list;
+    return new_person_end;
   }
   else
   {
@@ -55,10 +51,9 @@ static person* insert_end(person *p, char *name, int age)
       end = end->next;
     }
 
-    end->next = new_list;
-
+    end->next = new_person_end;
+    return p;
   }
-  return p;
 
 }
 
@@ -103,11 +98,17 @@ int main(int argc, char **argv)
     return 5;
   }
 
-  while (people != NULL)
+  person* temp = people;
+  while (temp != NULL)
   {
-    printf("Name: %s, age: %d\n", people->name, people->age);
-    free(people);
+    printf("Name: %s, age: %d\n", temp->name, temp->age);
+    temp = temp->next;
+  }
+
+  while (people != NULL){
+    temp = people;
     people = people->next;
+    free(temp);
   }
 
 
