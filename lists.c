@@ -56,6 +56,53 @@ static person* insert_end(person *p, char *name, int age)
   }
 
 }
+static person* insert_sorted(person *p, char *name, int age, int (*compare)(person*, person*))
+{
+  person *new_person_end = malloc(sizeof(person));
+  // check that malloc allocated memory for array
+  // if not exit
+  if (new_person_end == NULL)
+  {
+    exit(1);
+  }
+  new_person_end->name = name;
+  new_person_end->age = age;
+  new_person_end->next = NULL;
+
+  if(p == NULL ||compare_people(p, new_person_end) > 0)
+  {
+    free(new_person_end);
+    return insert_start(p, name, age);
+  }
+  else
+  {
+    person* end = p;
+    person* previous = NULL;
+    while(end != NULL && compare_people(new_person_end, end) >= 0)
+    {
+      previous = end;
+      end = end->next;
+    }
+    if (end == NULL)
+    {
+      previous->next = new_person_end;
+    }
+    else
+    {
+      previous->next = new_person_end;
+      new_person_end->next = end;
+    }
+    return p;
+  }
+
+}
+int compare_people(person* person1, person* person2)
+{
+  if (person1 == NULL || person2 == NULL)
+    exit(1);
+  return strcmp(person1->name, person2->name);
+}
+
 
 int main(int argc, char **argv)
 {
@@ -85,6 +132,15 @@ int main(int argc, char **argv)
       {
         people = insert_end(people, names[i], ages[i]);
       }
+    }
+    else if (0 == strcmp(argv[1], "insert_sorted"))
+    {
+      int (*compare)(person*, person*);
+      for (int i = 0; i < HOW_MANY; i++)
+      {
+        people = insert_sorted(people, names[i], ages[i], compare);
+      }
+      //printf("%s\n", people);
     }
     else
     {
