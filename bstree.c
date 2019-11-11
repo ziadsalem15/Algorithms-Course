@@ -23,15 +23,17 @@ struct bstree* initialize_set (int size)
 void tidy(struct bstree* tree)
 {
   if(tree){
-    free(tree->left);
-    free(tree->right);
+    tidy(tree->left);
+    tidy(tree->right);
+    // assumes tree owns value memory
+    free(tree->value);
     free(tree);
   }
 }
 
 int size(struct bstree* tree){
   if(tree){
-    return size(tree->left) + size(tree->right);
+    return 1 + size(tree->left) + size(tree->right);
   }
   return 0;
 } 
