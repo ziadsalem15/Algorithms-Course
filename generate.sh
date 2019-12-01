@@ -48,7 +48,7 @@ then
   dict_len=$actual_dict_len
 fi
 
-if $(( $dict_len > $actual_dict_len ))
+if (( $dict_len > $actual_dict_len ))
 then
   echo "We cannot create new words, dictionary length must be less than actual"
   exit
@@ -93,7 +93,7 @@ echo "Computing query hits"
 while (( $query_hit > 0 ))
 do
   take=$(( $query_hit > $dict_len ? $dict_len : $query_hit ))
-  head -n $take $dict_out >> query_out
+  head -n $take $dict_out >> $query_out
   query_hit=$(( $query_hit - $take ))
 done
 
@@ -102,7 +102,7 @@ leftover=$(( $actual_dict_len - $dict_len ))
 while (( $query_miss > 0 ))
 do
   take=$(( $query_miss > $leftover ? $leftover : $query_miss ))
-  tail -n $take $exploded_dict >> query_out
+  tail -n $take $exploded_dict >> $query_out
   query_miss=$(( $query_miss - $take ))
 done
 
