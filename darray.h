@@ -3,14 +3,14 @@
 #include <stdbool.h>
 
 // Necessary as can be included more than once
-#ifndef FWD_DARRAY 
+#ifndef FWD_DARRAY
 #define FWD_DARRAY
 
-enum SearchModes   { LINEAR_SEARCH=0, 
-                     BINARY_SEARCH_ONE=1, 
-                     BINARY_SEARCH_TWO=2, 
-                     BINARY_SEARCH_THREE=3, 
-                     BINARY_SEARCH_FOUR=4, 
+enum SearchModes   { LINEAR_SEARCH=0,
+                     BINARY_SEARCH_ONE=1,
+                     BINARY_SEARCH_TWO=2,
+                     BINARY_SEARCH_THREE=3,
+                     BINARY_SEARCH_FOUR=4,
                      BINARY_SEARCH_FIVE=5 };
 
 typedef char* Value_Type;
@@ -27,8 +27,8 @@ struct darray
   int resizes;
 };
 
-struct darray* initialize_set (int size);     
-void tidy (struct darray*); 
+struct darray* initialize_set (int size);
+void tidy (struct darray*);
 
 int size(struct darray*);
 

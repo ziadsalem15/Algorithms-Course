@@ -14,11 +14,36 @@ int compare(Value_Type a, Value_Type b){
   return strcmp(a,b);
 }
 
+int linearSearch(Value_Type value, int size, struct darray* array)
+{
+  for (int i = 0; i < size; i++)
+    if (array->cells[i] == value)
+      return i;
+  return -1;
+}
 
-struct darray* initialize_set (int size)  
+int binarySearch(Value_Type value, struct darray* array, int first, int last)
+{
+  if (first <= last)
+  {
+    int mid = first + (last - first)/2;
+
+    if (compare(array->cells[mid], value) == 0)
+      return mid;
+    else if (array->cells[mid] < value)
+      return binarySearch(value, array, mid + 1, last);
+
+    return binarySearch(value, array, first, mid -1);
+  }
+  return -1;
+}
+
+
+
+struct darray* initialize_set (int size)
 {
 
-  struct darray* arr = malloc(sizeof(struct darray)); 
+  struct darray* arr = malloc(sizeof(struct darray));
   check(arr);
   arr->cells = (Value_Type*) (malloc(sizeof(Value_Type)*size));
   check(arr->cells);
@@ -58,7 +83,7 @@ struct darray* insert (Value_Type value, struct darray* arr)
   }
 
   arr->cells[arr->size] = strdup(value);
-  arr->size++; 
+  arr->size++;
 
   // changing the array means it may no longer be sorted
   arr->sorted = false;
@@ -71,7 +96,7 @@ bool find (Value_Type value, struct darray* arr)
   if(mode == LINEAR_SEARCH){
     //TODO implement linear search through arr->cells
   }
-  else{ // Binary Search 
+  else{ // Binary Search
     if(!arr->sorted){
       if(verbose > 0){
         printf("Dynamic Array not sorted, sorting...\n");
