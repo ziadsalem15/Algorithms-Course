@@ -93,8 +93,9 @@ struct darray* insert (Value_Type value, struct darray* arr)
 
 bool find (Value_Type value, struct darray* arr)
 {
+  int size = sizeof(arr->cells) / sizeof(arr->cells[0]);
   if(mode == LINEAR_SEARCH){
-    //TODO implement linear search through arr->cells
+    int index = linearSearch(value, size, arr);
   }
   else{ // Binary Search
     if(!arr->sorted){
@@ -107,8 +108,9 @@ bool find (Value_Type value, struct darray* arr)
       }
       arr->sorted = true;
     }
-    //TODO implement binary search through arr->cells
-
+    //int first = arr->cells[0];
+    //int last = arr->cells[size - 1];
+    int midIndex = binarySearch(value, arr, 0, size-1);
   }
   // To supress warning, default return value
   return false;
