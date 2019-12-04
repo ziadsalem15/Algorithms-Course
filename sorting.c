@@ -3,7 +3,7 @@
 #include "sorting.h"
 
 void sort(struct darray* arr, int select){
-  int size = sizeof(arr->cells) / sizeof(arr->cells[0]);
+  int size = arr->size;
   switch(select){
     case BINARY_SEARCH_ONE   : insertion_sort(arr); break;
     case BINARY_SEARCH_TWO   : quick_sort(arr, 0, size-1); break;

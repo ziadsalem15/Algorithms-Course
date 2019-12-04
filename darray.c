@@ -17,7 +17,7 @@ int compare(Value_Type a, Value_Type b){
 int linearSearch(Value_Type value, int size, struct darray* array)
 {
   for (int i = 0; i < size; i++)
-    if (array->cells[i] == value)
+    if (compare(array->cells[i], value) == 0)
       return i;
   return -1;
 }
@@ -93,7 +93,7 @@ struct darray* insert (Value_Type value, struct darray* arr)
 
 bool find (Value_Type value, struct darray* arr)
 {
-  int size = sizeof(arr->cells) / sizeof(arr->cells[0]);
+  int size = arr->size;
   int index;
   if(mode == LINEAR_SEARCH){
     index = linearSearch(value, size, arr);
