@@ -25,15 +25,15 @@ bool linearSearch(Value_Type value, int size, struct darray* array)
 bool binarySearch(Value_Type value, struct darray* array, int first, int last)
 {
   int mid = 0;
-  if (first <= last)
+  while (first <= last)
   {
     mid = (last + first)/2;
     if (compare(array->cells[mid], value) == 0)
       return true;
     else if (array->cells[mid] < value)
-      return binarySearch(value, array, mid + 1, last);
+      first =  mid + 1;
     else
-      return binarySearch(value, array, first, mid -1);
+      last = mid - 1;
   }
   return false;
 }
