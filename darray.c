@@ -14,28 +14,28 @@ int compare(Value_Type a, Value_Type b){
   return strcmp(a,b);
 }
 
-int linearSearch(Value_Type value, int size, struct darray* array)
+bool linearSearch(Value_Type value, int size, struct darray* array)
 {
   for (int i = 0; i < size; i++)
     if (compare(array->cells[i], value) == 0)
-      return i;
-  return -1;
+      return true;
+  return false;
 }
 
-int binarySearch(Value_Type value, struct darray* array, int first, int last)
+bool binarySearch(Value_Type value, struct darray* array, int first, int last)
 {
+  int mid = 0;
   if (first <= last)
   {
-    int mid = first + (last - first)/2;
-
+    mid = (last + first)/2;
     if (compare(array->cells[mid], value) == 0)
-      return mid;
+      return true;
     else if (array->cells[mid] < value)
       return binarySearch(value, array, mid + 1, last);
-
-    return binarySearch(value, array, first, mid -1);
+    else
+      return binarySearch(value, array, first, mid -1);
   }
-  return -1;
+  return false;
 }
 
 
@@ -94,27 +94,27 @@ struct darray* insert (Value_Type value, struct darray* arr)
 bool find (Value_Type value, struct darray* arr)
 {
   int size = arr->size;
-  int index;
+  //int index = 0;
   if(mode == LINEAR_SEARCH){
-    index = linearSearch(value, size, arr);
+    return linearSearch(value, size, arr);
   }
   else{ // Binary Search
     if(!arr->sorted){
-      if(verbose > 0){
+      if(verbose > 2){
         printf("Dynamic Array not sorted, sorting...\n");
       }
       sort(arr,mode);
-      if(verbose > 0){
+      if(verbose > 2){
         printf("Dynamic Array sorted\n");
       }
       arr->sorted = true;
     }
     //int first = arr->cells[0];
     //int last = arr->cells[size - 1];
-    index = binarySearch(value, arr, 0, size-1);
+    return binarySearch(value, arr, 0, size-1);
   }
   // To supress warning, default return value
-  return index;
+  return false;
 }
 
 // You can make any changes you want to this function

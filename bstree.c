@@ -14,7 +14,7 @@ int compare(Value_Type a, Value_Type b){
 }
 
 
-struct bstree* initialize_set (int size)  
+struct bstree* initialize_set (int size)
 {
   // An empty tree is represented by NULL
   return NULL;
@@ -36,16 +36,24 @@ int size(struct bstree* tree){
     return 1 + size(tree->left) + size(tree->right);
   }
   return 0;
-} 
+}
 
 struct bstree* insert (Value_Type value, struct bstree* tree)
 {
   if(tree){
-    // TODO if tree is not NULL then insert into the correct sub-tree
+    if(value < tree->value)
+      insert(value, tree->left);
+    else
+      insert(value, tree->right);
   }
   else{
     // TODO otherwise create a new node containing the value
+    struct bstree* tree1 = (struct bstree*) malloc(sizeof(struct bstree));
+    tree1->value  = value;
+    tree1->left = NULL;
+    tree1->right = NULL;
   }
+  tree->height = size(tree);
   return tree;
 }
 
@@ -53,9 +61,17 @@ bool find (Value_Type value, struct bstree* tree)
 {
   if(tree){
     //TODO complete the find function
+    if(value == tree->value)
+      return value;
+    else if(value < tree->value)
+      return find(value, tree->left);
+    else
+      return find(value, tree->right);
   }
   // if tree is NULL then it contains no values
-  return false;
+  else
+    return false;
+  tree->height = size(tree);
 }
 
 // You can update this if you want
@@ -67,7 +83,7 @@ void print_set_recursive(struct bstree* tree, int depth)
     print_set_recursive(tree->left,depth+1);
     print_set_recursive(tree->right,depth+1);
   }
-} 
+}
 // You can update this if you want
 void print_set (struct bstree* tree)
 {
