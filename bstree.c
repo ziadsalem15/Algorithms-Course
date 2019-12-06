@@ -30,7 +30,22 @@ void tidy(struct bstree* tree)
     free(tree);
   }
 }
-
+int calc_height(struct bstree* tree)
+{
+  if (size(tree))
+  {
+    int left_height = calc_height(tree->left);
+    int right_height = calc_height(tree->right);
+    if (left_height >= right_height)
+    {
+      return left_height + 1;
+    }
+    else
+      return right_height + 1;
+  }
+  else
+    return 0;
+}
 int size(struct bstree* tree){
   if(tree){
     return 1 + size(tree->left) + size(tree->right);
@@ -41,19 +56,26 @@ int size(struct bstree* tree){
 struct bstree* insert (Value_Type value, struct bstree* tree)
 {
   if(tree){
-    if(value < tree->value)
-      insert(value, tree->left);
-    else
+    if(compare(value, tree->value) > 0)
+    {
+      tree->comparisons++;
       insert(value, tree->right);
+    }
+    else if (compare(value, tree->value) < 0)
+    {
+      tree->comparisons++;
+      insert(value, tree->left);
+    }
   }
   else{
     // TODO otherwise create a new node containing the value
     struct bstree* tree1 = (struct bstree*) malloc(sizeof(struct bstree));
-    tree1->value  = value;
     tree1->left = NULL;
     tree1->right = NULL;
+    tree1->value  = strdup(value);
   }
-  tree->height = size(tree);
+  tree->height = calc_height(tree);
+  print_stats(tree);
   return tree;
 }
 
@@ -61,17 +83,22 @@ bool find (Value_Type value, struct bstree* tree)
 {
   if(tree){
     //TODO complete the find function
-    if(value == tree->value)
-      return value;
-    else if(value < tree->value)
+    if(compare(value, tree->value) == 0)
+      return true;
+    else if(compare(value, tree->value) < 0)
+    {
+      tree->comparisons++;
       return find(value, tree->left);
+    }
     else
+    {
+      tree->comparisons++;
       return find(value, tree->right);
+    }
   }
   // if tree is NULL then it contains no values
   else
     return false;
-  tree->height = size(tree);
 }
 
 // You can update this if you want
@@ -93,5 +120,6 @@ void print_set (struct bstree* tree)
 
 void print_stats (struct bstree* tree)
 {
- // TODO update code to record and print statistics
+  printf("Height of the tree is : %d\n", tree->height);
+  printf("Comparisons of the tree is : %d\n", tree->comparisons);
 }
