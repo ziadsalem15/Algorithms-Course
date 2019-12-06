@@ -59,12 +59,12 @@ struct bstree* insert (Value_Type value, struct bstree* tree)
     if(compare(value, tree->value) > 0)
     {
       tree->comparisons++;
-      insert(value, tree->right);
+      tree->right = insert(value, tree->right);
     }
     else if (compare(value, tree->value) < 0)
     {
       tree->comparisons++;
-      insert(value, tree->left);
+      tree->left = insert(value, tree->left);
     }
   }
   else{
@@ -78,7 +78,7 @@ struct bstree* insert (Value_Type value, struct bstree* tree)
     tree = tree1;
   }
   tree->height = calc_height(tree);
-  print_stats(tree);
+  //print_stats(tree);
   return tree;
 }
 
@@ -128,6 +128,6 @@ void print_set (struct bstree* tree)
 
 void print_stats (struct bstree* tree)
 {
-  printf("Height of the tree is : %d\n", tree->height);
-  printf("Comparisons of the tree is : %d\n", tree->comparisons);
+  //printf("Height of the tree is : %d\n", tree->height);
+  //printf("Comparisons of the tree is : %d\n", tree->comparisons);
 }
