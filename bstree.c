@@ -69,10 +69,13 @@ struct bstree* insert (Value_Type value, struct bstree* tree)
   }
   else{
     // TODO otherwise create a new node containing the value
-    struct bstree* tree1 = (struct bstree*) malloc(sizeof(struct bstree));
+    struct bstree* tree1 = malloc(sizeof(struct bstree));
+    tree1->value  = strdup(value);
     tree1->left = NULL;
     tree1->right = NULL;
-    tree1->value  = strdup(value);
+    tree1->height = 0;
+    tree1->comparisons = 0;
+    tree = tree1;
   }
   tree->height = calc_height(tree);
   print_stats(tree);
@@ -83,17 +86,22 @@ bool find (Value_Type value, struct bstree* tree)
 {
   if(tree){
     //TODO complete the find function
-    if(compare(value, tree->value) == 0)
-      return true;
-    else if(compare(value, tree->value) < 0)
+    while(tree != NULL)
     {
-      tree->comparisons++;
-      return find(value, tree->left);
-    }
-    else
-    {
-      tree->comparisons++;
-      return find(value, tree->right);
+      if(compare(value, tree->value) == 0)
+      {
+        return true;
+      }
+      else if(compare(value, tree->value) < 0)
+      {
+        tree->comparisons++;
+        return find(value, tree->left);
+      }
+      else
+      {
+        tree->comparisons++;
+        return find(value, tree->right);
+      }
     }
   }
   // if tree is NULL then it contains no values
