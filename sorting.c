@@ -7,7 +7,7 @@ void sort(struct darray* arr, int select){
   switch(select){
     case BINARY_SEARCH_ONE   : insertion_sort(arr); break;
     case BINARY_SEARCH_TWO   : quick_sort(arr, 0, size-1); break;
-    case BINARY_SEARCH_THREE :
+    case BINARY_SEARCH_THREE : 
     case BINARY_SEARCH_FOUR  :
     case BINARY_SEARCH_FIVE  :  // Add your own choices here
     default:
@@ -31,18 +31,16 @@ void swap(char* *a, char* *b)
 
 void insertion_sort(struct darray* array)
 {
-  int size = sizeof(array->cells) / sizeof(array->cells[0]);
-  for (int i = 1; i < size; i++)
+  for (int i = 1; i < array->size; i++)
   {
-    Value_Type unsortedExtracted = array->cells[i];
-    int z = i - 1;
-    while (unsortedExtracted < array->cells[z] && z >= 0)
+    int z = i;
+    while (z > 0 && compare(array->cells[z-1] , array->cells[z]) > 0)
     {
-      array->cells[z + 1] = array->cells[z];
+      swap(&array->cells[z - 1], &array->cells[z]);
       z--;
     }
-    array->cells[z+1] = unsortedExtracted;
   }
+  print_set(array);
 }
 
 int partition(struct darray* arr, int startIndex, int lastIndex)

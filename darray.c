@@ -30,7 +30,7 @@ bool binarySearch(Value_Type value, struct darray* array, int first, int last)
     mid = (last + first)/2;
     if (compare(array->cells[mid], value) == 0)
       return true;
-    else if (array->cells[mid] < value)
+    else if (compare(array->cells[mid], value) < 0)
       first =  mid + 1;
     else
       last = mid - 1;
@@ -100,6 +100,7 @@ bool find (Value_Type value, struct darray* arr)
   }
   else{ // Binary Search
     if(!arr->sorted){
+      print_set(arr);
       if(verbose > 2){
         printf("Dynamic Array not sorted, sorting...\n");
       }
