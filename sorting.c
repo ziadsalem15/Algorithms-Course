@@ -3,10 +3,9 @@
 #include "sorting.h"
 
 void sort(struct darray* arr, int select){
-  int size = arr->size;
   switch(select){
     case BINARY_SEARCH_ONE   : insertion_sort(arr); break;
-    case BINARY_SEARCH_TWO   : quick_sort(arr, 0, size-1); break;
+    case BINARY_SEARCH_TWO   : quick_sort(arr); break;
     case BINARY_SEARCH_THREE :
     case BINARY_SEARCH_FOUR  :
     case BINARY_SEARCH_FIVE  :  // Add your own choices here
@@ -40,31 +39,40 @@ void insertion_sort(struct darray* array)
       z--;
     }
   }
-  //print_set(array);
 }
 
-int partition(struct darray* arr, int startIndex, int lastIndex)
-{
-  Value_Type pivot = arr->cells[lastIndex];
-  int indexSmallest = (startIndex - 1);
-  for (int i = startIndex; i <= lastIndex - 1; i++)
-  {
-    if (arr->cells[i] < pivot)
-    {
-      indexSmallest++;
-      swap(&arr->cells[indexSmallest], &arr->cells[i]);
-    }
-  }
-  swap(&arr->cells[indexSmallest + 1], &arr->cells[lastIndex]);
-  return (indexSmallest + 1);
-}
+
 
 // Hint: you probably want to define a helper function for the recursive call
-void quick_sort(struct darray* arr, int startIndex, int lastIndex) {
- if (startIndex < lastIndex)
+void quick_sort(struct darray* arr) {
+ if (arr->size > 1)
  {
-   int partitionIndex = partition(arr, startIndex, lastIndex);
-   quick_sort(arr, startIndex, partitionIndex - 1);
-   quick_sort(arr, partitionIndex + 1, lastIndex);
+   struct darray* less_than = initialize_set(1);
+   struct darray* greater_than = initialize_set(1);
+   int pivot = arr->size - 1;
+   for (int i = 0; i < arr->size - 1; i++)
+   {
+     if (compare(arr->cells[i], arr->cells[pivot]) >= 0)
+     {
+       greater_than = insert(arr->cells[i], greater_than);
+     }
+     else{
+       less_than = insert(arr->cells[i], less_than);
+     }
+   }
+   quick_sort(less_than);
+   quick_sort(greater_than);
+   for(int j = 0; j < less_than->size; j++)
+   {
+     swap(&arr->cells[j], &less_than->cells[j]);
+   }
+   swap(&arr->cells[less_than->size], &arr->cells[pivot]);
+   int initial = less_than->size + 1;
+   for(int z = 0; z < greater_than->size; z++)
+   {
+     swap(&arr->cells[z + initial], &less_than->cells[z]);
+   }
+   tidy(less_than);
+   tidy(greater_than);
  }
 }
