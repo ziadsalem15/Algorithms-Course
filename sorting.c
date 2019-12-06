@@ -47,8 +47,8 @@ void insertion_sort(struct darray* array)
 void quick_sort(struct darray* arr) {
  if (arr->size > 1)
  {
-   struct darray* less_than = initialize_set(1);
    struct darray* greater_than = initialize_set(1);
+   struct darray* less_than = initialize_set(1);
    int pivot = arr->size - 1;
    for (int i = 0; i < arr->size - 1; i++)
    {
@@ -70,9 +70,9 @@ void quick_sort(struct darray* arr) {
    int initial = less_than->size + 1;
    for(int z = 0; z < greater_than->size; z++)
    {
-     swap(&arr->cells[z + initial], &less_than->cells[z]);
+     swap(&arr->cells[z + initial], &greater_than->cells[z]);
    }
-   tidy(less_than);
    tidy(greater_than);
+   tidy(less_than);
  }
 }
