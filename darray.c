@@ -100,7 +100,6 @@ bool find (Value_Type value, struct darray* arr)
   }
   else{ // Binary Search
     if(!arr->sorted){
-      print_set(arr);
       if(verbose > 2){
         printf("Dynamic Array not sorted, sorting...\n");
       }
