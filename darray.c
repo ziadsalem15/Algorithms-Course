@@ -58,8 +58,9 @@ void tidy(struct darray* arr)
 {
   if(arr){
     // free memory created by strdup
-    for(unsigned i=0; i<arr->size;i++){ free(arr->cells[i]); }
+    for(unsigned i=0; i<arr->size;i++){free(arr->cells[i]); }
     // free array and struct
+
     free(arr->cells);
     free(arr);
   }
