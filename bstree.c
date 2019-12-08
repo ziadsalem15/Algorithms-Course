@@ -128,6 +128,6 @@ void print_set (struct bstree* tree)
 
 void print_stats (struct bstree* tree)
 {
-  //printf("Height of the tree is : %d\n", tree->height);
-  //printf("Comparisons of the tree is : %d\n", tree->comparisons);
+  printf("Height of the tree is : %d\n", tree->height);
+  printf("Comparisons of the tree is : %d\n", tree->comparisons);
 }

@@ -1,14 +1,14 @@
 // Giles Reger, 2019
 
-#include <stdbool.h> 
+#include <stdbool.h>
 
-enum HashingModes { HASH_1_LINEAR_PROBING=0, 
-                    HASH_1_QUADRATIC_PROBING=1, 
-                    HASH_1_DOUBLE_HASHING=2, 
+enum HashingModes { HASH_1_LINEAR_PROBING=0,
+                    HASH_1_QUADRATIC_PROBING=1,
+                    HASH_1_DOUBLE_HASHING=2,
                     HASH_1_SEPARATE_CHAINING=3,
-                    HASH_2_LINEAR_PROBING=4, 
-                    HASH_2_QUADRATIC_PROBING=5, 
-                    HASH_2_DOUBLE_HASHING=6, 
+                    HASH_2_LINEAR_PROBING=4,
+                    HASH_2_QUADRATIC_PROBING=5,
+                    HASH_2_DOUBLE_HASHING=6,
                     HASH_2_SEPARATE_CHAINING=7};
 
 typedef char* Value_Type;
@@ -28,13 +28,14 @@ typedef struct
 struct  hashset
 {
   cell *cells; 
-  int size; 
-  int num_entries; // number of cells in_use
+  int size;
+  int num_entries;   // number of cells in_use
+  int collisionsValue;
   //TODO add anything else that you need
 };
 
-struct hashset* initialize_set (int size);     
-void tidy (struct hashset*); 
+struct hashset* initialize_set (int size);
+void tidy (struct hashset*);
 
 int size(struct hashset*);
 

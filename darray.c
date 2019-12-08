@@ -42,7 +42,6 @@ bool binarySearch(Value_Type value, struct darray* array, int first, int last)
 
 struct darray* initialize_set (int size)
 {
-
   struct darray* arr = malloc(sizeof(struct darray));
   check(arr);
   arr->cells = (Value_Type*) (malloc(sizeof(Value_Type)*size));
