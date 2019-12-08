@@ -39,7 +39,7 @@ struct hashset* initialize_set (int size)
   set->collisionsValue = 0;
   for (int i = 0; i < size; i++)
   {
-    cell* newCell = malloc(sizeof(cell));
+    cell* newCell = (cell*)malloc(sizeof(cell));
     newCell->element = NULL;
     newCell->state = empty;
     set->cells[i] = *newCell;
@@ -52,7 +52,7 @@ void tidy(struct hashset* set)
 {
   for(int i = 0; i<set->size; i++)
   {
-    if (set->cells[i].state == in_use)
+    if (set->cells[i].element != NULL)
     {
       free(set->cells[i].element);
     }
@@ -79,7 +79,7 @@ struct hashset* resize(struct hashset* setToResize)
 
 int getHashKey(Value_Type value, struct hashset* set, int i)
 {
-  return ((int)value + i) % set->size;
+  return (((int)value) + i) % set->size;
 }
 
 struct hashset* insert (Value_Type value, struct hashset* set)
@@ -93,7 +93,7 @@ struct hashset* insert (Value_Type value, struct hashset* set)
   {
     set = resize(set);
   }
-  for(int i = 0; i <= set->size; i++)
+  for(int i = 0; i < set->size; i++)
   {
     int hashKey = getHashKey(value, set, i);
     if (set->cells[hashKey].state == empty)
@@ -101,9 +101,12 @@ struct hashset* insert (Value_Type value, struct hashset* set)
       set->cells[hashKey].element = strdup(value);
       set->cells[hashKey].state = in_use;
       set->num_entries += 1;
-      break;
+      return set;
     }
-    set->collisionsValue++;
+    else
+    {
+      set->collisionsValue++;
+    }
   }
   return set;
 }
@@ -113,7 +116,7 @@ bool find (Value_Type value, struct hashset* set)
   for (int i = 0; i < set->size; i++)
   {
     int hashKey = getHashKey(value, set, i);
-    if (set->cells[hashKey].state != empty && compare(set->cells[hashKey].element, value) == 0)
+    if ((set->cells[hashKey].state != empty) && (compare(set->cells[hashKey].element, value) == 0))
     {
       return true;
     }
