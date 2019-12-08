@@ -66,6 +66,21 @@ int size(struct hashset* set)
 {
   return set->num_entries;
 }
+struct hashset* resize(struct hashset* setToResize)
+{
+  struct hashset* resizedSet = initialize_set(setToResize->size * 2);
+  for(int i = 0; i < setToResize->size; i++)
+  {
+    resizedSet = insert(setToResize->cells[i].element, resizedSet);
+  }
+  tidy(setToResize);
+  return resizedSet;
+}
+
+int getHashKey(Value_Type value, struct hashset* set, int i)
+{
+  return ((int)value + i) % set->size;
+}
 
 struct hashset* insert (Value_Type value, struct hashset* set)
 {
@@ -94,21 +109,6 @@ struct hashset* insert (Value_Type value, struct hashset* set)
     }
     return set;
   }
-}
-struct hashset* resize(struct hashset* setToResize)
-{
-  struct hashset* resizedSet = initialize_set(setToResize->size * 2);
-  for(int i = 0; i < setToResize->size; i++)
-  {
-    resizedSet = insert(setToResize->cells[i].element, resizedSet);
-  }
-  tidy(setToResize);
-  return resizedSet;
-}
-
-int getHashKey(Value_Type value, struct hashset* set, int i)
-{
-  return ((int)value + i) % set->size;
 }
 
 bool find (Value_Type value, struct hashset* set)
