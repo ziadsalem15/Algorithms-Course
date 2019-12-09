@@ -33,39 +33,45 @@ int nextPrime(int n)
 struct hashset* initialize_set (int size)
 {
   struct hashset* set = malloc(sizeof(struct hashset));
+  check(set);
+  if(!isPrime(size))
+  {
+    size = nextPrime(size);
+  }
   set->cells = (cell*)malloc(sizeof(cell)*size);
+  check(set->cells);
   set->size = size;
+  for (int i = 0; i < set->size; i++)
+  {
+    set->cells[i].element = NULL;
+    set->cells[i].state = empty;
+  }
   set->num_entries = 0;
   set->collisionsValue = 0;
-  for (int i = 0; i < size; i++)
-  {
-    cell* newCell = (cell*)malloc(sizeof(cell));
-    newCell->element = NULL;
-    newCell->state = empty;
-    set->cells[i] = *newCell;
-    free(newCell);
-  }
   return set;
 }
 
 void tidy(struct hashset* set)
 {
-  for(int i = 0; i<set->size; i++)
+  if (set)
   {
-    if (set->cells[i].element != NULL)
+    for(int i = 0; i < set->size; i++)
     {
-      free(set->cells[i].element);
+      if (set->cells[i].state == in_use)
+      {
+        free(set->cells[i].element);
+      }
     }
+    free(set->cells);
+    free(set);
   }
-  free(set->cells);
-  free(set);
-
 }
 
 int size(struct hashset* set)
 {
   return set->num_entries;
 }
+
 struct hashset* resize(struct hashset* setToResize)
 {
   struct hashset* resizedSet = initialize_set(setToResize->size * 2);
@@ -77,71 +83,53 @@ struct hashset* resize(struct hashset* setToResize)
   return resizedSet;
 }
 
-int getHashKey(Value_Type value, struct hashset* set, int i)
+int getHashKey(Value_Type value, struct hashset* set)
 {
-  return (((int)value) + i) % set->size;
+  int key = 0;
+  for (int i = 0; i < strlen(value); i++)
+  {
+    key = key + (int)value[i];
+  }
+  return key;
 }
 
 struct hashset* insert (Value_Type value, struct hashset* set)
 {
   // TODO code for inserting into hash table
-  if (find(value, set))
+  //if (find(value, set))
+  //{
+    //return set;
+  //}
+  //if ((mode == HASH_1_LINEAR_PROBING) || (mode == HASH_2_LINEAR_PROBING))
+  //{
+  if(set->size == set->num_entries)
   {
-    return set;
+    set = resize(set);
   }
-  if (mode == HASH_1_LINEAR_PROBING)
+  int key = getHashKey(value, set);
+  for(int i = 0; i < set->size; i++)
   {
-    if(set->size == set->num_entries)
+    int hashKey = (key + i)%(set->size);
+    if (set->cells[hashKey].state == empty)
     {
-      set = resize(set);
+      set->cells[hashKey].element = strdup(value);
+      set->cells[hashKey].state = in_use;
+      set->num_entries += 1;
+      break;
     }
-    for(int i = 0; i < set->size; i++)
-    {
-      int hashKey = getHashKey(value, set, i);
-      if (set->cells[hashKey].state == empty)
-      {
-        set->cells[hashKey].element = strdup(value);
-        set->cells[hashKey].state = in_use;
-        set->num_entries += 1;
-        return set;
-      }
-      else
-      {
-        set->collisionsValue++;
-      }
-    }
+    set->collisionsValue++;
   }
-  else if (mode == HASH_2_LINEAR_PROBING)
-  {
-    if(set->size == set->num_entries)
-    {
-      set = resize(set);
-    }
-    for(int i = 0; i < set->size; i++)
-    {
-      int hashKey = getHashKey(value, set, i);
-      if (set->cells[hashKey].state == empty)
-      {
-        set->cells[hashKey].element = strdup(value);
-        set->cells[hashKey].state = in_use;
-        set->num_entries += 1;
-        return set;
-      }
-      else
-      {
-        set->collisionsValue++;
-      }
-    }
-  }
+  //}
   return set;
 }
 
 bool find (Value_Type value, struct hashset* set)
 {
+  int key = getHashKey(value, set);
   for (int i = 0; i < set->size; i++)
   {
-    int hashKey = getHashKey(value, set, i);
-    if ((set->cells[hashKey].state != empty) && (compare(set->cells[hashKey].element, value) == 0))
+    int hashKey = (key + i)%(set->size);
+    if (set->cells[hashKey].state != empty && compare(set->cells[hashKey].element, value) == 0)
     {
       return true;
     }
