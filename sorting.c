@@ -8,7 +8,7 @@ void sort(struct darray* arr, int select){
     case BINARY_SEARCH_ONE   : insertion_sort(arr); break;
     case BINARY_SEARCH_TWO   : quick_sort(arr); break;
     case BINARY_SEARCH_THREE : merge_sort(arr); break;
-    case BINARY_SEARCH_FOUR  : //bucket_sort(arr); break;
+    case BINARY_SEARCH_FOUR  : bucket_sort(arr); break;
     case BINARY_SEARCH_FIVE  : bubble_sort(arr); break; // Add your own choices here
     default:
       fprintf(stderr,
@@ -141,6 +141,47 @@ void bubble_sort(struct darray* array)
       {
         swap(&(array->cells[j]), &(array->cells[j+1]));
       }
+    }
+  }
+}
+void bucket_sort(struct darray* array)
+{
+  if (array->size > 1)
+  {
+    //struct darray *buckets = (struct darray**)malloc(sizeof(struct darray*)*64);
+    struct darray *buckets[150];
+    for (int i = 0; i < 150; i++)
+    {
+      buckets[i] = NULL;
+    }
+    for (int i = 0; i < array->size; i++)
+    {
+      int key = ((int) array->cells[i][0]);
+      if (buckets[key] != NULL)
+      {
+        buckets[key] = insert(array->cells[i], buckets[key]);
+      }
+      else
+      {
+        buckets[key] = initialize_set(1);
+        buckets[key] = insert(array->cells[i], buckets[key]);
+      }
+    }
+    int index = 0;
+    for (int i = 0; i < 150; i++)
+    {
+      if (buckets[i] != NULL){
+        insertion_sort(buckets[i]);
+        for (int j = 0; j < (buckets[i]->size); j++)
+        {
+          swap(&array->cells[index], &buckets[i]->cells[j]);
+          index++;
+        }
+      }
+    }
+    for (int i = 0; i < 150; i++)
+    {
+      tidy(buckets[i]);
     }
   }
 }
