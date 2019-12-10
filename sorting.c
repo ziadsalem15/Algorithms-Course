@@ -82,9 +82,9 @@ void merge_sort(struct darray* array)
   if (array->size > 1)
   {
     int mid = array->size / 2;
-    struct darray* left = (struct darray*)malloc(sizeof(struct darray));
-    left->cells = (char**)malloc(mid * sizeof(char*));
-    left->size = 0;
+    struct darray* left = initialize_set(mid);
+    //left->cells = (char**)malloc(mid * sizeof(char*));
+    //left->size = 0;
     //struct darray* left = initialize_set(mid);
     //struct darray* right = initialize_set(mid);
     for (int i = 0; i < mid; i++)
@@ -92,9 +92,9 @@ void merge_sort(struct darray* array)
       left->cells[i] = array->cells[i];
       left->size++;
     }
-    struct darray* right = (struct darray*)malloc(sizeof(struct darray));
-    right->cells = (char**)malloc((array->size - mid) * sizeof(char*));
-    right->size = 0;
+    struct darray* right = initialize_set((array->size) - mid);
+    //right->cells = (char**)malloc((array->size - mid) * sizeof(char*));
+    //right->size = 0;
     for (int i = 0; i < ((array->size) - mid); i++)
     {
       right->cells[i] = array->cells[i+mid];
@@ -117,22 +117,21 @@ void merge_sort(struct darray* array)
         array->cells[z] = right->cells[y];
         y++;
       }
+      z++;
     }
     while (x < left->size)
     {
       array->cells[z] = left->cells[x];
-      z++;
       x++;
+      z++;
     }
     while (y < right->size)
     {
       array->cells[z] = right->cells[y];
-      z++;
       y++;
+      z++;
     }
-    free(left->cells);
-    free(right->cells);
-    free(left);
-    free(right);
+    //tidy(left);
+    //tidy(right);
   }
 }
