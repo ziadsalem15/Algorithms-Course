@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "sorting.h"
 
 void sort(struct darray* arr, int select){
@@ -81,14 +82,20 @@ void merge_sort(struct darray* array)
   if (array->size > 1)
   {
     int mid = array->size / 2;
-    struct darray* left = initialize_set(mid);
-    struct darray* right = initialize_set(mid);
+    struct darray* left = (struct darray*)malloc(sizeof(struct darray));
+    left->cells = (char**)malloc(mid * sizeof(char*));
+    left->size = 0;
+    //struct darray* left = initialize_set(mid);
+    //struct darray* right = initialize_set(mid);
     for (int i = 0; i < mid; i++)
     {
       left->cells[i] = array->cells[i];
       left->size++;
     }
-    for (int i = 0; i < (array->size - mid); i++)
+    struct darray* right = (struct darray*)malloc(sizeof(struct darray));
+    right->cells = (char**)malloc((array->size - mid) * sizeof(char*));
+    right->size = 0;
+    for (int i = 0; i < ((array->size) - mid); i++)
     {
       right->cells[i] = array->cells[i+mid];
       right->size++;
@@ -114,14 +121,14 @@ void merge_sort(struct darray* array)
     while (x < left->size)
     {
       array->cells[z] = left->cells[x];
-      x++;
       z++;
+      x++;
     }
     while (y < right->size)
     {
       array->cells[z] = right->cells[y];
-      y++;
       z++;
+      y++;
     }
     free(left->cells);
     free(right->cells);
