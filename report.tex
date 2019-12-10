@@ -1,7 +1,15 @@
 \documentclass{article}
+\usepackage[noend]{algorithmic}
+\usepackage{amsmath}
+\usepackage{nccmath}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{multicol}
+\usepackage{mathtools}
 
 \title{COMP26120 Lab 5}
-\author{?}
+\author{Ziad Salem}
 
 \begin{document}
 \maketitle
@@ -13,8 +21,279 @@
 
 
 \subsection{Iteration Sort}
+Insertion sort is a sorting algorithm that builds a final sorted array (sometimes called a list) one element at a time.
+\begin{center}
+\begin{figure}[H]
+\begin{tabular}{|p{1.1\textwidth}|p{0.2\textwidth}|}
+\hline
+Statement& Effort\\
+\hline
+    \begin{center}
+    \begin{verbatim}
+    void insertion_sort(struct darray* array)
+    {
+      for (int i = 1; i < array->size; i++)
+      {
+        int z = i;
+        while (z > 0 && compare(array->cells[z-1] , array->cells[z]) > 0)
+        {
+          swap(&array->cells[z - 1], &array->cells[z]);
+          z--;
+        }
+      }
+    }
+    \end{verbatim}
+    \end{center}&
 
+    $ $
+    $ $
+
+    $ $
+    $ $
+    $ $
+
+    $c1n$
+
+    $ $
+    $ $
+    $ $
+    $ $
+    $ $
+
+    $c2(n-1)$
+
+    $ $
+
+    $c3T $
+
+    $ $
+    $ $
+    $ $
+
+    $c4(T-(n-1))$
+
+    $c5(T-(n-1))$
+
+
+\\
+\hline
+\end{tabular}
+\end{figure}
+\end{center}
+T = t2 + t3 + . . .  + tn where ti is number of while expressions valuations for the (ith) for loop iteration \\
+n is array.size\\
+T(n) = c1n + c2(n-1) + c3(T) + c4(T - (n-1)) + c5(T - (n-1)\\
+
+\subsubsection{Best Case}
+The best case is when the inner while loop body never executed. So, when checking the running time it will be T(n) = an - b. The big-O notation is O(n).
+\newline
+\newline
+\newline
+
+\subsubsection{Worst Case}
+The worst case will be when inner loop body executed for all previous elements. This happens when the array is not sorted at all and it needs to sort every element. The running time will be
+\begin{ceqn}
+\begin{align}
+   T(n) = an^2 + bn - c
+\end{align}
+\end{ceqn}
+The big-O notation will be
+
+\begin{ceqn}
+\begin{align}
+   O(n^2)
+\end{align}
+\end{ceqn}
+\subsubsection{Average Case}
+The big-O notation gonna be the same as the worst case which is $O(n^2)$. This is because the average case happens when the array is somehow sorted(partially) so the running time will be half the worst case but we don't care about constants.
+\newline
+\newline
+\newline
 \subsection{Quick Sort}
+Quick Sort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot. There are 3 main steps in quick sort:
+\begin{enumerate}
+\item Choose the last element as the pivot
+\item Create 2 new arrays to the left and right of the pivot.
+\item Sort and then keep calling the method until everything is sorted.
+\end{enumerate}
+
+
+\begin{center}
+\begin{figure}[H]
+\begin{tabular}{|p{1.1\textwidth}|p{0.2\textwidth}|}
+\hline
+Statement& Effort\\
+\hline
+    \begin{center}
+    \begin{verbatim}
+    void quick_sort(struct darray* arr)
+    {
+         if (arr->size > 1)
+         {
+           struct darray* greater_than = initialize_set(1);
+           struct darray* less_than = initialize_set(1);
+           int pivot = arr->size - 1;
+           for (int i = 0; i < arr->size - 1; i++)
+           {
+             if (compare(arr->cells[i], arr->cells[pivot]) >= 0)
+             {
+               greater_than = insert(arr->cells[i], greater_than);
+             }
+             else{
+               less_than = insert(arr->cells[i], less_than);
+             }
+           }
+           quick_sort(less_than);
+           quick_sort(greater_than);
+           for(int j = 0; j < less_than->size; j++)
+           {
+             swap(&arr->cells[j], &less_than->cells[j]);
+           }
+           swap(&arr->cells[less_than->size], &arr->cells[pivot]);
+           int initial = less_than->size + 1;
+           for(int z = 0; z < greater_than->size; z++)
+           {
+             swap(&arr->cells[z + initial], &greater_than->cells[z]);
+           }
+           tidy(greater_than);
+           tidy(less_than);
+         }
+    }
+
+
+    \end{verbatim}
+    \end{center}&
+    $T(n)$
+    $ $
+
+    $ $
+
+    $\Theta(1) $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $\Theta(n)$
+
+    $ $
+
+    $\Theta(1) $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $ $
+
+
+    $T(n1)$
+
+    $T(n2)$
+
+    $\Theta(n1)$
+
+    $ $
+
+
+    $\Theta(1)$
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $\Theta(n2)$
+
+    $ $
+
+
+    $\Theta(1)$
+
+    $ $
+
+    $ $
+
+    $ $
+
+    $0$
+    \\
+\\
+\hline
+\end{tabular}
+\end{figure}
+\end{center}
+n is array.size\\
+$\Theta(n)$ is for partitioning\\
+T(n1) and T(n2) are for recursive calls where n1 and n2 are the partitions depending which one is greatest.\\
+T(n) = O(n) + T(n1) + T(n2)\\
+n = n1 + n2\\
+\subsubsection{Best Case}
+$ T(n) =
+  \begin{cases}
+    C       & \quad \mathrm{if  } n =1\\
+
+    \Theta(n) + T(\frac{n}{2}) +   T(\frac{n}{2}) & \quad \mathrm{if } otherwise
+  \end{cases}
+$
+\newline
+The best case is reached when the pivot is chosen at the middle so the two arrays created are of the same size and balanced. Using the master method we get:
+
+$T(n) = \Theta(n) + 2T(\frac{n}{2})$ \\\\
+If we set a and be to 2 we have:\\\\
+$f(n) = \Theta(n^{\log_b a})$ \\
+$f(n) = \Theta(n^{\log_2 2})=\Theta(n)$ \\
+$T(n) = \Theta(n^{\log_b a}logn)$ \\
+		 $= \Theta(nlogn)$ \\ \\
+
+\subsubsection{Worst Case}
+The worst case is reached when you set the pivot either at the start or at the end of array.
+\newline
+$ T(n) =
+  \begin{cases}
+    C       & \quad \mathrm{if  } n =1\\
+
+    \Theta(n) + T(n-1) +   T(1) & \quad \mathrm{if } otherwise
+  \end{cases}
+$
+
+$ $
+$ $
+\newline
+$T(n) = \Theta(n) + T(n-1) +   T(1) $\\
+$T(n) = \Theta(n) + T(n-1)$\\
+$T(n) = \Theta(n) + (\Theta(n - 1) + T(n-2))$\\
+...
+\newline
+$T(n) = \Theta(n) + (\Theta(n - 1) + (\Theta(n - 2) + ... + (T(1)))$\\
+$T(n) = \Theta(n) + (\Theta(n - 1) + (\Theta(n - 2) + ... + (\Theta(1)))$\\
+$T(n) = {\sum\limits_{i=0}^n i}$\\
+$T(n) = \Theta(n^2)$\\
+
+\subsubsection{Average Case}
+
+ Complexity is : $\Theta(nlogn)$ \\ \\
+ We get this complexity when the partition we do is partially balanced so the complexity will be almost the best case.
+
+
+
+
+
 
 
 %====================================
@@ -23,12 +302,114 @@
 
 In this section we consider the question
 	\begin{quote}
-	Under what conditions is it better to perform linear search rather than binary search?
+[	Under what conditions is it better to perform linear search rather than binary search?]
 	\end{quote}
 
 \subsection{Experimental Design}
-
+I did 8 experiments to know in which condition does linear do better and I found it performs better when it is unsorted, small query and large dictionary. To know that, I varied the conditions each time between Sorted and Unsorted array, Different size of queries and Different sizes of dictionaries. Linear is better in this case because binary sorts the array first before searching so it takes more time than linear search.
 \subsection{Experimental Results}
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Sorted, Small Query and Small Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 0.008s                 &  0.008s                \\ \hline
+ 0.005s                 &  0.009s               \\ \hline
+ 0.006s                 &  0.009s               \\ \hline
+ 0.007s                 &  0.010s               \\ \hline
+ 0.004s                 &  0.010s               \\ \hline
+
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Sorted, Large Query and Small Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 1.545s                 &  0.576s                \\ \hline
+ 1.605s                 &  0.869s               \\ \hline
+ 1.435s                 &  0.661s               \\ \hline
+ 1.372s                 &  0.890s               \\ \hline
+ 1.459s                 &  0.743s               \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Sorted, Small Query and Large Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 0.347s                 &  1.149s                \\ \hline
+ 0.271s                 &  1.163s               \\ \hline
+ 0.490s                 &  1.138s               \\ \hline
+ 0.576s                 &  1.147s               \\ \hline
+ 0.249s                 &  1.552s               \\ \hline
+\end{tabular}
+\end{table}
+\newpage\newpage
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Sorted, Large Query and Large Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 1m 08.25s                 &  1.451s                \\ \hline
+ 1m 29.05s                 &  1.362s               \\ \hline
+ 1m 11.86s                 &  1.498s               \\ \hline
+ 1m 35.16s                 &  1.261s               \\ \hline
+ 1m 20.62s                 &  1.537s               \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{UnSorted, Small Query and Small Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 0.003s                 &  0.004s                \\ \hline
+ 0.005s                 &  0.006s               \\ \hline
+ 0.004s                 &  0.003s               \\ \hline
+ 0.004s                 &  0.004s               \\ \hline
+ 0.004s                 &  0.006s               \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{UnSorted, Large Query and Small Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 0.741s                 &  1.105s                \\ \hline
+ 0.903s                 &  1.082s               \\ \hline
+ 1.244s                 &  1.056s               \\ \hline
+ 0.689s                 &  1.073s               \\ \hline
+ 0.859s                 &  1.085s               \\ \hline
+\end{tabular}
+\end{table}
+\newpage\newpage
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{UnSorted, Small Query and Large Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 0.176s                 &  0.600s                \\ \hline
+ 0.184s                 &  0.600s               \\ \hline
+ 1.209s                 &  0.739s               \\ \hline
+ 0.192s                 &  0.578s               \\ \hline
+ 0.201s                 &  0.602s               \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[h]
+\begin{tabular}{|c|c|}
+\hline
+\multicolumn{2}{|c|}{\textbf{UnSorted, Large Query and Large Dictionary}}     \\ \hline \hline
+\textbf{Linear Search} & {\textbf{Binary Search}}   \\ \hline \hline
+ 0.176s                 &  0.738s                \\ \hline
+ 0.184s                 &  0.800s               \\ \hline
+ 1.209s                 &  0.803s               \\ \hline
+ 0.192s                 &  0.955s               \\ \hline
+ 0.201s                 &  0.815s               \\ \hline
+\end{tabular}
+\end{table}
+
+
+
 
 
 % PART 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,11 +421,12 @@ We now extend our previously analysis to consider the question
 \begin{quote}
 Under what conditions are different implementations of the dictionary data structure preferable?
 \end{quote}
-
+There is always a best implementation but it depends on certain conditions. So, when the array is sorted binary search is the fastest. If it is not sorted, tree is the best especially when we want to insert. But considering all conditions hash set is the best implementation. Its complexity is lower than the other implementations. It is O(1) for most methods used in Hash set.
 % PART 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Conclusions}
 \label{sec:conclusions}
-% Give your conclusions from the above experiments 
-
+% Give your conclusions from the above experiments
+For insertion sort, the best case is O(n) while the worst case(and the average case) is O(n to the power of 2). For quick sort the best case(average as well) is O(nlogn) while the worst case is O(n to the power of 2). So, quick sort is much faster than insertion sort. Also, based on the experiments, I conclude that binary search is better in the overall performance but linear search is better when it is unsorted, small query and large dictionary.
 
 \end{document}
