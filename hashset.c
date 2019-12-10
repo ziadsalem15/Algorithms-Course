@@ -117,7 +117,7 @@ int hashInPoly(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * pow(10, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * pow(53, strlen(value) - 1 - i);
   }
   return sum;
 }
@@ -126,7 +126,16 @@ int hashInPoly2nd(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * pow(100, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * pow(97, strlen(value) - 1 - i);
+  }
+  return sum;
+}
+int hashInPoly3rd(char* value)
+{
+  int sum = 0;
+  for(int i = 0; i < strlen(value); i++)
+  {
+    sum = sum + (int)value[i] * pow(193, strlen(value) - 1 - i);
   }
   return sum;
 }
@@ -149,9 +158,9 @@ int compressFunction(Value_Type value, int size, int i)
   else if ((mode == HASH_1_QUADRATIC_PROBING) || (mode == HASH_2_QUADRATIC_PROBING))
     return (getHashKey(value) + (int)pow(i, 2)) % size;
   else if (mode == HASH_1_DOUBLE_HASHING)
-    return (hashInPoly(value) + i * hashInPoly2nd(value)) % size;
+    return (hashInPoly2nd(value) + i * hashInPoly3rd(value)) % size;
   else if (mode == HASH_2_DOUBLE_HASHING)
-    return (hashInPoly2nd(value) + i * hashInPoly(value)) % size;
+    return (hashInPoly3rd(value) + i * hashInPoly2nd(value)) % size;
   else
     exit(1);
 
