@@ -32,23 +32,26 @@ int nextPrime(int n)
 
 struct hashset* initialize_set (int size)
 {
-  struct hashset* set = malloc(sizeof(struct hashset));
-  check(set);
-  if(!isPrime(size))
+  if ((mode == HASH_1_LINEAR_PROBING) || (mode == HASH_2_LINEAR_PROBING))
   {
-    size = nextPrime(size);
+    struct hashset* set = malloc(sizeof(struct hashset));
+    check(set);
+    if(!isPrime(size))
+    {
+      size = nextPrime(size);
+    }
+    set->cells = (cell*)malloc(sizeof(cell)*size);
+    check(set->cells);
+    set->size = size;
+    for (int i = 0; i < set->size; i++)
+    {
+      set->cells[i].element = NULL;
+      set->cells[i].state = empty;
+    }
+    set->num_entries = 0;
+    set->collisionsValue = 0;
+    return set;
   }
-  set->cells = (cell*)malloc(sizeof(cell)*size);
-  check(set->cells);
-  set->size = size;
-  for (int i = 0; i < set->size; i++)
-  {
-    set->cells[i].element = NULL;
-    set->cells[i].state = empty;
-  }
-  set->num_entries = 0;
-  set->collisionsValue = 0;
-  return set;
 }
 
 void tidy(struct hashset* set)
