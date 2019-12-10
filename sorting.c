@@ -6,9 +6,9 @@ void sort(struct darray* arr, int select){
   switch(select){
     case BINARY_SEARCH_ONE   : insertion_sort(arr); break;
     case BINARY_SEARCH_TWO   : quick_sort(arr); break;
-    case BINARY_SEARCH_THREE :
-    case BINARY_SEARCH_FOUR  :
-    case BINARY_SEARCH_FIVE  :  // Add your own choices here
+    case BINARY_SEARCH_THREE : merge_sort(arr); break;
+    case BINARY_SEARCH_FOUR  : //bucket_sort(arr); break;
+    case BINARY_SEARCH_FIVE  : //bubble_sort(arr); break; // Add your own choices here
     default:
       fprintf(stderr,
               "The value %d is not supported in sorting.c\n",
@@ -75,4 +75,57 @@ void quick_sort(struct darray* arr) {
    tidy(greater_than);
    tidy(less_than);
  }
+}
+void merge_sort(struct darray* array)
+{
+  if (array->size > 1)
+  {
+    int mid = array->size / 2;
+    struct darray* left = initialize_set(mid);
+    struct darray* right = initialize_set(mid);
+    for (int i = 0; i < mid; i++)
+    {
+      left->cells[i] = array->cells[i];
+      left->size++;
+    }
+    for (int i = 0; i < (array->size - mid); i++)
+    {
+      right->cells[i] = array->cells[i+mid];
+      right->size++;
+    }
+    merge_sort(left);
+    merge_sort(right);
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    while (x < left->size && y < right->size)
+    {
+      if (compare(left->cells[x], right->cells[y]) < 0)
+      {
+        array->cells[z] = left->cells[x];
+        x++;
+      }
+      else
+      {
+        array->cells[z] = right->cells[y];
+        y++;
+      }
+    }
+    while (x < left->size)
+    {
+      array->cells[z] = left->cells[x];
+      x++;
+      z++;
+    }
+    while (y < right->size)
+    {
+      array->cells[z] = right->cells[y];
+      y++;
+      z++;
+    }
+    free(left->cells);
+    free(right->cells);
+    free(left);
+    free(right);
+  }
 }
