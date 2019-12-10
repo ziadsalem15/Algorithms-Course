@@ -96,30 +96,30 @@ int getHashKey(Value_Type value, struct hashset* set)
 struct hashset* insert (Value_Type value, struct hashset* set)
 {
   // TODO code for inserting into hash table
-  //if (find(value, set))
-  //{
-    //return set;
-  //}
-  //if ((mode == HASH_1_LINEAR_PROBING) || (mode == HASH_2_LINEAR_PROBING))
-  //{
-  if(set->size == set->num_entries)
+  if (find(value, set))
   {
-    set = resize(set);
+    return set;
   }
-  int key = getHashKey(value, set);
-  for(int i = 0; i < set->size; i++)
+  if ((mode == HASH_1_LINEAR_PROBING) || (mode == HASH_2_LINEAR_PROBING))
   {
-    int hashKey = (key + i)%(set->size);
-    if (set->cells[hashKey].state == empty)
+    if(set->size == set->num_entries)
     {
-      set->cells[hashKey].element = strdup(value);
-      set->cells[hashKey].state = in_use;
-      set->num_entries += 1;
-      break;
+      set = resize(set);
     }
-    set->collisionsValue++;
+    int key = getHashKey(value, set);
+    for(int i = 0; i < set->size; i++)
+    {
+      int hashKey = (key + i)%(set->size);
+      if (set->cells[hashKey].state == empty)
+      {
+        set->cells[hashKey].element = strdup(value);
+        set->cells[hashKey].state = in_use;
+        set->num_entries += 1;
+        break;
+      }
+      set->collisionsValue++;
+    }
   }
-  //}
   return set;
 }
 
