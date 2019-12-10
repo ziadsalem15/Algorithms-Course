@@ -131,6 +131,10 @@ void merge_sort(struct darray* array)
       y++;
       z++;
     }
+    free(left->cells);
+    free(right->cells);
+    free(left);
+    free(right);
     //tidy(left);
     //tidy(right);
   }
