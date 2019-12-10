@@ -120,7 +120,7 @@ int hashInPoly(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * power(50, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * power(10, strlen(value) - 1 - i);
   } // for
   return sum;
 } // hashInPoly
@@ -132,7 +132,7 @@ int hashInPoly2nd(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * power(100, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * power(20, strlen(value) - 1 - i);
   } // for
   return sum;
 } // hashInPoly2nd
