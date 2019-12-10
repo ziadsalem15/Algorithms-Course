@@ -98,12 +98,10 @@ int size(struct hashset* set)
 
 int getHashKey(char* value)
 {
-  if (mode < 4)
+  if (mode < 3)
     return getHashKeybySum(value);
-  else if (mode < 8)
+  else if ((mode < 7) && (mode != 3))
     return hashInPoly(value);
-  else
-    exit(-1);
 }
 int getHashKeybySum(char* value)
 {
@@ -119,7 +117,7 @@ int hashInPoly(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * pow(53, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * pow(10, strlen(value) - 1 - i);
   }
   return sum;
 }
@@ -128,7 +126,7 @@ int hashInPoly2nd(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * pow(98, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * pow(100, strlen(value) - 1 - i);
   }
   return sum;
 }
