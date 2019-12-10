@@ -102,6 +102,8 @@ int getHashKey(char* value)
     return getHashKeybySum(value);
   else if (mode < 8)
     return hashInPoly(value);
+  else
+    exit(-1);
 }
 int getHashKeybySum(char* value)
 {
