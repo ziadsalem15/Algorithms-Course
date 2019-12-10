@@ -13,14 +13,14 @@ int compare(Value_Type a, Value_Type b){
   return strcmp(a,b);
 } // compare
 // math.h wasn't working on COMP Judge so i did that instead.
-double pow(int base, unsigned int power)
+double power(int base, unsigned int p)
 {
-  if (power == 0)
+  if (p == 0)
     return 1;
-  else if (power % 2 == 0)
-    return pow(base, power/2) * pow(base, power/2);
+  else if (p % 2 == 0)
+    return power(base, p/2) * power(base, p/2);
   else
-    return base * pow(base, power/2) * pow(base, power/2);
+    return base * power(base, p/2) * power(base, p/2);
 } // pow
 
 // Helper functions for finding prime numbers
@@ -47,46 +47,40 @@ int nextPrime(int n)
 // return the set we initialized.
 struct hashset* initialize_set (int size)
 {
-  if ((mode != HASH_1_SEPARATE_CHAINING) && (mode != HASH_2_SEPARATE_CHAINING))
+  struct hashset* set = (struct hashset*)malloc(sizeof(struct hashset));
+  check(set);
+  if(!isPrime(size))
   {
-    struct hashset* set = (struct hashset*)malloc(sizeof(struct hashset));
-    check(set);
-    if(!isPrime(size))
-    {
-      size = nextPrime(size);
-    } // if
-    set->cells = (cell*)malloc(sizeof(cell)*size);
-    check(set->cells);
-    set->size = size;
-    set->num_entries = 0;
-    set->collisionsValue = 0;
-    for (int i = 0; i < set->size; i++)
-    {
-      set->cells[i].element = NULL;
-      set->cells[i].state = empty;
-    } // for
-    return set;
+    size = nextPrime(size);
   } // if
+  set->cells = (cell*)malloc(sizeof(cell)*size);
+  check(set->cells);
+  set->size = size;
+  set->num_entries = 0;
+  set->collisionsValue = 0;
+  for (int i = 0; i < set->size; i++)
+  {
+    set->cells[i].element = NULL;
+    set->cells[i].state = empty;
+  } // for
+  return set;
 } // initialize_set
 
 // tidy to clean up memory after finishing working
 // it takes the set we want to free and free every thing inside it
 void tidy(struct hashset* set)
 {
-  if ((mode != HASH_1_SEPARATE_CHAINING) && (mode != HASH_2_SEPARATE_CHAINING))
+  if (set)
   {
-    if (set)
+    for(int i = 0; i < set->size; i++)
     {
-      for(int i = 0; i < set->size; i++)
+      if (set->cells[i].state == in_use)
       {
-        if (set->cells[i].state == in_use)
-        {
-          free(set->cells[i].element);
-        } // if
-      } // for
-      free(set->cells);
-      free(set);
-    } // if
+        free(set->cells[i].element);
+      } // if
+    } // for
+    free(set->cells);
+    free(set);
   } // if
 } // tidy
 
@@ -102,6 +96,8 @@ int getHashKey(char* value)
     return getHashKeybySum(value);
   else if ((mode < 7) && (mode != 3))
     return hashInPoly(value);
+  else
+    exit(-1);
 }
 int getHashKeybySum(char* value)
 {
@@ -117,7 +113,7 @@ int hashInPoly(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * pow(53, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * power(10, strlen(value) - 1 - i);
   }
   return sum;
 }
@@ -126,16 +122,7 @@ int hashInPoly2nd(char* value)
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * pow(97, strlen(value) - 1 - i);
-  }
-  return sum;
-}
-int hashInPoly3rd(char* value)
-{
-  int sum = 0;
-  for(int i = 0; i < strlen(value); i++)
-  {
-    sum = sum + (int)value[i] * pow(193, strlen(value) - 1 - i);
+    sum = sum + (int)value[i] * power(100, strlen(value) - 1 - i);
   }
   return sum;
 }
@@ -156,11 +143,11 @@ int compressFunction(Value_Type value, int size, int i)
   if ((mode == HASH_1_LINEAR_PROBING) || (mode == HASH_2_LINEAR_PROBING))
     return (getHashKey(value) + i) % size;
   else if ((mode == HASH_1_QUADRATIC_PROBING) || (mode == HASH_2_QUADRATIC_PROBING))
-    return (getHashKey(value) + (int)pow(i, 2)) % size;
+    return (getHashKey(value) + (int)power(i, 2)) % size;
   else if (mode == HASH_1_DOUBLE_HASHING)
-    return (hashInPoly2nd(value) + i * hashInPoly3rd(value)) % size;
+    return (hashInPoly(value) + i * hashInPoly2nd(value)) % size;
   else if (mode == HASH_2_DOUBLE_HASHING)
-    return (hashInPoly3rd(value) + i * hashInPoly2nd(value)) % size;
+    return (hashInPoly2nd(value) + i * hashInPoly(value)) % size;
   else
     exit(1);
 
@@ -176,43 +163,41 @@ struct hashset* insert (Value_Type value, struct hashset* set)
     return set;
   } // if
   // if it is not the mode we want don't go inside
-  if ((mode != HASH_1_SEPARATE_CHAINING) && (mode != HASH_2_SEPARATE_CHAINING))
+
+  if(set->size == set->num_entries)
   {
-    if(set->size == set->num_entries)
-    {
-      set = resize(set);
-    }
-    for(int i = 0; i < set->size; i++)
-    {
-      int hashKey = compressFunction(value, set->size, i);
-      if (set->cells[hashKey].state == empty)
-      {
-        set->cells[hashKey].element = strdup(value);
-        set->cells[hashKey].state = in_use;
-        set->num_entries += 1;
-        return set;
-      }
-      else
-        set->collisionsValue++;
-    }
-    return set;
+    set = resize(set);
   }
+  for(int i = 0; i < set->size; i++)
+  {
+    int hashKey = compressFunction(value, set->size, i);
+    if (set->cells[hashKey].state == empty)
+    {
+      set->cells[hashKey].element = strdup(value);
+      set->cells[hashKey].state = in_use;
+      set->num_entries += 1;
+      return set;
+    }
+    else
+      set->collisionsValue++;
+  }
+  return set;
+
 }
 
 bool find (Value_Type value, struct hashset* set)
 {
-  if ((mode != HASH_1_SEPARATE_CHAINING) && (mode != HASH_2_SEPARATE_CHAINING))
+
+  for (int i = 0; i < set->size; i++)
   {
-    for (int i = 0; i < set->size; i++)
+    int hashKey = compressFunction(value, set->size, i);
+    if (set->cells[hashKey].state != empty && compare(set->cells[hashKey].element, value) == 0)
     {
-      int hashKey = compressFunction(value, set->size, i);
-      if (set->cells[hashKey].state != empty && compare(set->cells[hashKey].element, value) == 0)
-      {
-        return true;
-      }
+      return true;
     }
-    return false;
   }
+  return false;
+
 }
 
 void print_set (struct hashset* set)

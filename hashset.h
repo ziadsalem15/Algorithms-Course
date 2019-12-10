@@ -15,7 +15,10 @@ typedef char* Value_Type;
 // Should be redefined if changing Value_Type
 int compare(Value_Type,Value_Type);
 
-
+int getHashKey(char* value);
+int getHashKeybySum(char* value);
+int hashInPoly(char* value);
+int hashInPoly2nd(char* value);
 // This is a cell struct assuming Open Addressing
 // You will need alternative data-structurs for separate chaining
 typedef struct
@@ -27,7 +30,7 @@ typedef struct
 
 struct  hashset
 {
-  cell *cells; 
+  cell *cells;
   int size;
   int num_entries;   // number of cells in_use
   int collisionsValue;
