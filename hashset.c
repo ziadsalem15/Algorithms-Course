@@ -90,56 +90,71 @@ int size(struct hashset* set)
   return set->num_entries;
 } // size
 
+// get hash key by getting using sum if mode less than 2
 int getHashKey(char* value)
 {
   if (mode < 3)
     return getHashKeybySum(value);
+  // otherwise use hash key using poly
   else if ((mode < 7) && (mode != 3))
     return hashInPoly(value);
   else
     exit(-1);
-}
+} // getHashKey
+// get hash key using sum
 int getHashKeybySum(char* value)
 {
+  // initialize sum to 0 and then loop over the length of string and sum
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
     sum = sum + (int)value[i];
-  }
+  } // for
   return sum;
-}
+} // getHashKeybySum
+
+// get hash key using poly
 int hashInPoly(char* value)
 {
+  // initialize sum to 0 and then loop over the length of string and sum
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
-    sum = sum + (int)value[i] * power(10, strlen(value) - 1 - i);
-  }
+    sum = sum + (int)value[i] * power(50, strlen(value) - 1 - i);
+  } // for
   return sum;
-}
+} // hashInPoly
+
+//// get hash key using poly
 int hashInPoly2nd(char* value)
 {
+  // initialize sum to 0 and then loop over the length of string and sum
   int sum = 0;
   for(int i = 0; i < strlen(value); i++)
   {
     sum = sum + (int)value[i] * power(100, strlen(value) - 1 - i);
-  }
+  } // for
   return sum;
-}
-//
+} // hashInPoly2nd
+
+// if the set is full resize it by making a new set by multiplying size by 2
+// then insert the old elements in the new set resized
+// tidy the old set at the end
 struct hashset* resize(struct hashset* setToResize)
 {
   struct hashset* resizedSet = initialize_set(setToResize->size * 2);
   for(int i = 0; i < setToResize->size; i++)
   {
     resizedSet = insert(setToResize->cells[i].element, resizedSet);
-  }
+  } // for
   tidy(setToResize);
   return resizedSet;
-}
+} // resize
 
+// function used to compress, it takes value, size, index
 int compressFunction(Value_Type value, int size, int i)
 {
+  // checks each mode and depending on it hashes by a different way
   if ((mode == HASH_1_LINEAR_PROBING) || (mode == HASH_2_LINEAR_PROBING))
     return (getHashKey(value) + i) % size;
   else if ((mode == HASH_1_QUADRATIC_PROBING) || (mode == HASH_2_QUADRATIC_PROBING))
@@ -148,10 +163,12 @@ int compressFunction(Value_Type value, int size, int i)
     return (hashInPoly(value) + i * hashInPoly2nd(value)) % size;
   else if (mode == HASH_2_DOUBLE_HASHING)
     return (hashInPoly2nd(value) + i * hashInPoly(value)) % size;
+  // exit if not any of the modes
   else
     exit(1);
 
-}
+} // compressFunction
+
 
 // insert function which takes the value we want to insert and the set
 struct hashset* insert (Value_Type value, struct hashset* set)
@@ -163,11 +180,12 @@ struct hashset* insert (Value_Type value, struct hashset* set)
     return set;
   } // if
   // if it is not the mode we want don't go inside
-
+  // if size is not enough multiply by 2
   if(set->size == set->num_entries)
   {
     set = resize(set);
   }
+  // // get hashkey and then insert elemnt in a free cell
   for(int i = 0; i < set->size; i++)
   {
     int hashKey = compressFunction(value, set->size, i);
@@ -177,29 +195,29 @@ struct hashset* insert (Value_Type value, struct hashset* set)
       set->cells[hashKey].state = in_use;
       set->num_entries += 1;
       return set;
-    }
+    } // if
     else
+      // increse no of collisions
       set->collisionsValue++;
-  }
+  } // else
   return set;
-
-}
-
+} // insert
+// function to check is the element is inside the set or not
 bool find (Value_Type value, struct hashset* set)
 {
-
   for (int i = 0; i < set->size; i++)
   {
+    // calling compress to get the hash key depending on the node
     int hashKey = compressFunction(value, set->size, i);
     if (set->cells[hashKey].state != empty && compare(set->cells[hashKey].element, value) == 0)
     {
       return true;
-    }
-  }
+    } // if
+  } // for
   return false;
+} // find
 
-}
-
+// printing element in each cell after checking if it is in use or not
 void print_set (struct hashset* set)
 {
   // TODO code for printing hash table
@@ -208,13 +226,14 @@ void print_set (struct hashset* set)
     if(set->cells[i].state == in_use)
     {
       printf("Element in each cell is : %s\n", (set->cells[i].element));
-    }
-  }
-}
+    } // if
+  } // for
+} // print_set
 
+// printing number of collisions at the end
 void print_stats (struct hashset* set)
 {
   // TODO code for printing statistics
   printf("Number of collisions is: ");
   printf("%d\n", set->collisionsValue);
-}
+} // print_stats
