@@ -194,12 +194,17 @@ bool contains (struct avltree* tree, Value_Type value, int priority)
 {
   if(sentinel(tree)){ tree=tree->left;}
   if(tree){
-    if(compare(value,tree->value)==0 && tree->priority==priority){
-      return true;
+    if(tree->priority==priority){
+      // if we have the right priority and right value return true
+      if(compare(value,tree->value)==0){ return true; }
+      // if we have the right priority but wrong value then one of the children might have the same
+      // priority and, if so, we should search there. We cannot make assumptions about which child.
+      return (tree->left && tree->left->priority==priority && contains(tree->left,value,priority)) || 
+             (tree->right && tree-> right->priority==priority && contains(tree-> right,value,priority));
     }
     // tree sorted by priority
     if(priority < tree->priority){ return contains(tree->left,value,priority);}
-    else { return contains(tree->right,value,priority); }
+    else{ return contains(tree->right,value,priority); }
   }
   // if tree is NULL then it contains no values
   return false;
