@@ -22,6 +22,7 @@ void check_result(int testno, char* expected, char* found){
 void assert(int testno, bool value, char* reason){
   if(!value){
    fprintf(stderr,"Test %d Failed as %s\n",testno,reason); 
+   exit(-1);
   }
 }
 
