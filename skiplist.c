@@ -88,8 +88,7 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
     level--;
 
     // TODO we now need to scan along this level until the 'next'
-    // priority is not less than or equal to (e.g. greater than) 
-    // the priority we are searching for. 
+    // priority is not less than the priority we are searching for. 
     // (Hint: the next node at this leve is currently in node->next[level])
     
     // Record the node where we go down at a particular level
