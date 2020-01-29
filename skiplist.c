@@ -73,8 +73,10 @@ bool is_empty(struct skiplist* slist){
   return slist->size <= 0;
 }
 
-// Returns the last node with priority less than or equal to 'priority'
-// (In the presence of duplicates we could return the first node in the case of equals) 
+// Returns the last node with priority less than 'priority'
+// UPDATE: the above line used to say 'or equal' but it was pointed out that returning
+// the last node in the case of duplicates makes the contains function fail
+//
 // Records in 'updates' the nodes along the path that would need updating if a node to
 // their right on their level were to be inserted e.g. the nodes at which the decision
 // to go 'down' is made
@@ -117,7 +119,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
 
 bool contains(struct skiplist* slist, Value_Type value, int priority)
 {
-  struct node* node = search(slist,priority,NULL);
+  struct node* node = search(slist,priority,NULL)->next[0];
   while(node->priority==priority && node->value && compare(node->value,value)!=0){
     node = node->next[0];
   }
