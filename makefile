@@ -1,6 +1,6 @@
 CFLAGS=-g -Wall -std=c99
 LDFLAGS=
-CC=gcc
+CC=gcc $(CFLAGS)
 PQ_FLAG=NONE
 IMP_FLAG=none
 
