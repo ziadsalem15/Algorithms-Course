@@ -155,7 +155,7 @@ struct avltree* rebalance(struct avltree* tree){
       //      using your new leftRotate function
       if(getBalance(tree->right) <= 0)
       {
-        tree->right =  leftRotate(tree->right);
+        tree->right =  rightRotate(tree->right);
         return leftRotate(tree);
       }
       else{
