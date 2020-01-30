@@ -166,5 +166,5 @@ int main (int argc, char *argv[])
    default:
      fprintf(stderr,"Test number %d not recognised\n",test_number);
  }
- return 255;
+ return 0;
 }
