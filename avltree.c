@@ -124,7 +124,7 @@ struct avltree* leftRotate(struct avltree* node)
   l->left = node;
 
   node->depth = max(height(node->left), height(node->right)) + 1;
-  l->depth = max(height(node->left), node->depth) + 1;
+  l->depth = max(height(node->right), node->depth) + 1;
   return 0;
 }
 
@@ -153,7 +153,7 @@ struct avltree* rebalance(struct avltree* tree){
     if (parentBalance == 2){ // right child updated
       // TODO implement the case where the right child has been updated
       //      using your new leftRotate function
-      if(getBalance(tree->right) >= 0)
+      if(getBalance(tree->right) <= 0)
       {
         return leftRotate(tree);
       }
