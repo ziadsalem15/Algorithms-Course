@@ -18,15 +18,15 @@ struct binaryHeap {
 // 0-based operations
 // This could be updated to be 1-based if you wanted, what else would need to change?
 #define FIRST 0
-int parent(int i) {return (i-1)/2;} 
-int left(int i) {return (2*i) + 1; } 
-int right(int i) {return (2*i) + 2; } 
+int parent(int i) {return (i-1)/2;}
+int left(int i) {return (2*i) + 1; }
+int right(int i) {return (2*i) + 2; }
 
 
 struct binaryHeap* initialize_pq(int size){
     struct binaryHeap* pq = malloc(sizeof(struct binaryHeap));
     check(pq);
-    pq->num_elem = size; 
+    pq->num_elem = size;
     pq->heap_size=0;
     pq->weights = malloc(sizeof(int)*size);
     check(pq->weights);
@@ -35,7 +35,7 @@ struct binaryHeap* initialize_pq(int size){
     return pq;
 }
 
-void tidy(struct binaryHeap* pq){ 
+void tidy(struct binaryHeap* pq){
     free(pq->elements);
     free(pq->weights);
     free(pq);
@@ -56,6 +56,17 @@ void swap(struct binaryHeap *pq, int i, int j) {
 
 void sift_up(struct binaryHeap *pq, int i) {
    // TODO implement sift_up (also known as bubble-up and other things)
+  int indexOfParent = parent(i);
+  if (i == 0);
+    return;
+  if (pq->weights[i] < pq->weights[indexOfParent])
+  {
+    swap(pq, i, indexOfParent);
+    if (indexOfParent != 0)
+    {
+      sift_up(pq, indexOfParent);
+    }
+  }
 }
 
 void sift_down(struct binaryHeap *pq, int i) {
@@ -66,13 +77,13 @@ void sift_down(struct binaryHeap *pq, int i) {
       if(l >= pq->heap_size && r >= pq->heap_size){
         // no children, we're finished
         return;
-      } 
+      }
       int smallest = l;
       if(r < pq->heap_size && pq->weights[r] < pq->weights[l]){ smallest=r;}
 
-      if(pq->weights[smallest] < pq->weights[i]){ 
+      if(pq->weights[smallest] < pq->weights[i]){
         swap(pq,i,smallest);
-      } 
+      }
       else{
         // children not smaller, we're finished
         return;
@@ -114,7 +125,7 @@ void expand(struct binaryHeap *pq)
 int last_idx(struct binaryHeap  *pq) {
     // TODO the last is only 0 at the very start
     //      fix this to set last to the last index of pq
-    int last = 0;
+    int last = pq->heap_size;
     // if we ever query outside the heap just expand it
     if(last >= pq->num_elem){
       expand(pq);
@@ -128,7 +139,7 @@ void insert(struct binaryHeap *pq, Value_Type u, int w) {
     pq->elements[li]=u;
 
     //TODO there is something missing here, put it back
-
+    sift_up(pq, li);
     pq->heap_size++;
 }
 
@@ -155,4 +166,3 @@ void print(struct binaryHeap *pq){
     printf("(%s,%d)\n",pq->elements[i], pq->weights[i]);
   }
 }
-
