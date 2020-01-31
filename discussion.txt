@@ -1,4 +1,10 @@
-1)
+1)Sorting: There is mainly n insertions and pop_mins as these are the main operations,
+          so each element is inserted and then popped. There is a lot of tidying as well
+
+  String search: There are many inserts here as well but more than Sorting as we need to
+                  concatenate every element to others so results in more contains checking
+                  and some pop_min and tidy operations as well
+
 2)  Linked List:
       a) Insertion - O(1)
       b) Contains (Search) - O(n)
@@ -34,10 +40,29 @@
       d) Empty - O(1)
       e) tidy - O(n)
 
-3) AVL tree and Binary heap is the best for concat_finder.c as their complexity
-is the same which is logn
-AVL tree is the best for sorting.c as its complexity is the fastest which is logn 
+3) AVL tree and Binary heap is the best for Sorting as their complexity
+is the same which is O(logn) for insertion and pop_min and others are much bigger than that.
+AVL tree is the best for String search as its complexity is the fastest which is O(logn)
+for searching and inserting.
 
-Prediction For both of them it is going to be an AVL tree since it is objectively
-the best. I assume it mostly depends on the amount of data but if we consider a
-big amount of data an AVL tree is going to be the best.
+4) Sorting: BinaryHeap 0m0.369s
+            skiplist 0m0.528s
+            avltree  0m0.589s
+            llist1 22m8.031s
+            llist2 19m10.335s
+
+BinaryHeap performed the best.
+
+  Concat:   BinaryHeap 0m0.989s
+            skiplist 0m0.533s
+            avltree 0m0.579s
+            llist1 20m19s
+            llist2 43m50.145s
+
+skiplist performed the best as most of the time the average case is applied
+which is better than other implementations.
+
+5) When we sort using string length, this will reduce sorting as it will result in equal priorities.
+The unsorted linked list will be the only one which will not change. There is no need to sift up so
+binaryHeap will perform much better. In the sorted linked list the search complexity will decrease
+but the pop_min will not be affected.
