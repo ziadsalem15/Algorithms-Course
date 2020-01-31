@@ -1,0 +1,34 @@
+2)  Linked List:
+      a) Insertion - O(1)
+      b) Contains (Search) - O(n)
+      c) pop_min (Deletion) - O(n)
+      d) Empty - O(1)
+      e) tidy - O(n)
+
+    Sorted Linked list:
+      a) Insertion - O(n)
+      b) Contains(search) - O(n)
+      c) pop_min (Deletion) - O(1)
+      d) Empty - O(1)
+      e) tidy - O(n)
+
+    AVL Tree:
+      a) Insertion - O(logn)
+      b) Contains (Search) - O(logn)
+      c) pop_min (Deletion) - O(logn)
+      d) Empty - O(1)
+      e) tidy - O(logn)
+
+    Binary Heap:
+      a) Insertion - O(logn)
+      b) Contains (Search) - O(n)
+      c) pop_min (Deletion)- O(logn)
+      d) Empty - O(1)
+      e) tidy - O(n)
+
+    Skip List:
+      a) Insertion - O(n + h)
+      b) Contains (Search) - O(n + h)
+      c) pop_min (Deletion) - O(h)
+      d) Empty - O(1)
+      e) tidy - O(n)
