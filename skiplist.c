@@ -114,7 +114,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   {
     new_node->next[i] = rand()%2;
   }
-  for(int i=0;i<levels;i++){
+  for(int i=0;i<slist->levels;i++){
     new_node->next[i] = updates[i]->next[i];
     updates[i]->next[i] = new_node;
   }
