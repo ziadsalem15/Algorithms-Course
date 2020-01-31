@@ -86,7 +86,7 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
   int level = MAX_LEVEL;
   while(level >0){
     level--;
-    while(node->next[level] && node->next[level]->priority < priority)
+    while(node->next[level]->priority < priority)
     {
       node = node->next[level];
     }
@@ -98,7 +98,10 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
     // Record the node where we go down at a particular level
     if(updates){updates[level]=node;}
   }
-  return node;
+  if(node->next[0]->priority <= priority)
+    return node->next[0];
+  else
+    return NULL;
 }
 
 void insert(struct skiplist* slist, Value_Type value, int priority){
