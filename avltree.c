@@ -118,7 +118,7 @@ struct avltree* rightRotate(struct avltree* node)
 
 struct avltree* leftRotate(struct avltree* node)
 {
-  // TODO implement a left rotations
+  // TODO implement a left rotationss
   struct avltree* l = node->right;
   node->right = l->left;
   l->left = node;
