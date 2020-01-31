@@ -147,8 +147,8 @@ void run_test5(){
 
 // trying to pop min while empty and make sure it returns null.
 void run_test6(){
-  printf("TEST 5\n");
-  PriorityQueue queue = initialize_pq(0);
+  printf("TEST 6\n");
+  PriorityQueue queue = initialize_pq(1);
   printf("Initialised...\n");
   check_result(6,NULL,pop_min(queue));
   tidy(queue);
