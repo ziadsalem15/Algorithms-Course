@@ -77,6 +77,8 @@ void run_test2(){
   tidy(queue);
 } // run_test2
 
+// check whether it is a queue or a priority queue
+// it is a priority queue
 void run_test3(){
   printf("TEST 3\n");
   PriorityQueue queue = initialize_pq(3);
