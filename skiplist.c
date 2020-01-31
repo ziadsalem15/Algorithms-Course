@@ -115,6 +115,14 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   while(rand()%2 ==1 && level < MAX_LEVEL){
     level++;
   }
+  if (level > slist->levels)
+  {
+    for (int i = slist->levels; i < level; i++)
+    {
+      updates[i] = slist->header
+    }
+    slist->levels = level;
+  }
   struct node* new_node = make_node(value, priority, level);
   for(int i=0;i<slist->levels;i++){
     new_node->next[i] = updates[i]->next[i];
