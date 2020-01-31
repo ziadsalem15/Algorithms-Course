@@ -110,11 +110,12 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   // where the chance of having n levels is 1/2^n e.g. flip
   // a coin for each level. (Hint: use rand())
 
-  struct node* new_node = make_node(value, priority, MAX_LEVEL);
-  for(int i=0;i<slist->levels;i++)
-  {
-    new_node->next[i] = rand()%2;
+
+  int level = 1;
+  while(rand()%2 ==1 && level < MAX_LEVEL){
+    level++;
   }
+  struct node* new_node = make_node(value, priority, level);
   for(int i=0;i<slist->levels;i++){
     new_node->next[i] = updates[i]->next[i];
     updates[i]->next[i] = new_node;
