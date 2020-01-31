@@ -175,6 +175,7 @@ int main (int argc, char *argv[])
    case 3: run_test3(); break;
    case 4: run_test4(); break;
    case 5: run_test5(); break;
+   case 6: run_test6(); break;
    default:
      fprintf(stderr,"Test number %d not recognised\n",test_number);
  }
