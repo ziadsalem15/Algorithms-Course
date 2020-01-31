@@ -169,6 +169,7 @@ Value_Type pop_min(struct skiplist* slist){
  slist->size--;
 
  return res;
+ //x
 }
 
 // There are probably nicer ways to print a skiplist
