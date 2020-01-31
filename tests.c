@@ -159,10 +159,10 @@ int main (int argc, char *argv[])
  switch(test_number){
    case 0: run_test0(); break;
    case 1: run_test1(); break;
-   case 2: run_test1(); break;
-   case 3: run_test1(); break;
-   case 4: run_test1(); break;
-   case 5: run_test1(); break;
+   case 2: run_test2(); break;
+   case 3: run_test3(); break;
+   case 4: run_test4(); break;
+   case 5: run_test5(); break;
    default:
      fprintf(stderr,"Test number %d not recognised\n",test_number);
  }
