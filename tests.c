@@ -99,7 +99,7 @@ void run_test3(){
 // trying to check if pq will extend itself
 // if we added above the size
 // it succceeds and salem is added at pq 4
-// order is reserved when popmin 
+// order is reserved when popmin
 void run_test4(){
   printf("TEST 4\n");
   PriorityQueue queue = initialize_pq(3);
@@ -123,7 +123,9 @@ void run_test4(){
   assert(4,is_empty(queue)," queue is meant to be empty");
   printf("Queue now empty\n");
   tidy(queue);
-}
+} // run_test4
+
+// Checking if words are inserted in the correct priority number as inserted 
 void run_test5(){
   printf("TEST 5\n");
   PriorityQueue queue = initialize_pq(2);
@@ -132,15 +134,8 @@ void run_test5(){
   printf("Inserted hi with priority 1...\n");
   insert(queue,"see you later",2);
   printf("Inserted see you later with priority 2...\n");
-  //if (contains(queue, "hi",2) == true)
-  //{
-    //printf("Hi is inserted at the wrong place\n");
-
-  //}
-  //if (contains(queue, "see you later",1) == true)
-  //{
-    //printf("see you later is inserted at the wrong place\n");
-  //}
+  !contains(queue, "hi",2)
+  !contains(queue, "see you later",1)
   check_result(5,"hi",pop_min(queue));
   printf("Popped hi...\n");
   check_result(5,"see you later",pop_min(queue));
