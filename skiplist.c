@@ -86,7 +86,7 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
   int level = MAX_LEVEL;
   while(level >0){
     level--;
-    while(node->next[level] && node->next[level]->priority <= priority)
+    while(node->next[level]->priority <= priority)
     {
       node = node->next[level];
     }
@@ -98,10 +98,10 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
     // Record the node where we go down at a particular level
     if(updates){updates[level]=node;}
   }
-  /*if(node->next[0]->priority <= priority)
+  if(node->next[0]->priority <= priority)
     return node->next[0];
   else
-    return NULL;*///
+    return node;
 }
 
 void insert(struct skiplist* slist, Value_Type value, int priority){
@@ -113,21 +113,21 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   // where the chance of having n levels is 1/2^n e.g. flip
   // a coin for each level. (Hint: use rand())
 
-  int random = 0;
+  int random = rand() % 2;
   int level = 1;
   while(random != 1 && level < MAX_LEVEL)
   {
     level++;
     random = rand() % 2;
   }
-  /*if (level > slist->levels)
+  if (level > slist->levels)
   {
     for (int i = slist->levels; i < level; i++)
     {
       updates[i] = slist->header;
     }
     slist->levels = level;
-  }*/
+  }
   struct node* new_node = make_node(value, priority, level);
   for(int i=0;i<level;i++){
     new_node->next[i] = updates[i]->next[i];
@@ -140,35 +140,38 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
 bool contains(struct skiplist* slist, Value_Type value, int priority)
 {
   struct node* node = search(slist,priority,NULL)->next[0];
-  if(node){
+
   while(node->priority==priority && node->value && compare(node->value,value)!=0){
     node = node->next[0];
   }
   return (node->priority==priority && node->value && compare(node->value,value)==0);
-}
-else
-return 0;
+
+
 }
 
 
 Value_Type pop_min(struct skiplist* slist){
- struct node* min = slist->header->next[0];
- Value_Type res = min->value;
+  if(slist->size > 0){
+   struct node* min = slist->header->next[0];
+   Value_Type res = min->value;
 
- // TODO what do we need to do to repair the Skip List
- // to remove the min node? (Hint: what is pointing to min
- // and where should that point?)
- for (int i = 0; i < min->height; i++)
- {
-   slist->header->next[i] = slist->header->next[i]->next[i];
+   // TODO what do we need to do to repair the Skip List
+   // to remove the min node? (Hint: what is pointing to min
+   // and where should that point?)
+   for (int i = 0; i < slist->levels; i++)
+   {
+     slist->header->next[i] = slist->header->next[i]->next[i];
+   }
+
+   free(min->next);
+   free(min);
+
+   slist->size--;
+
+   return res;
  }
-
- free(min->next);
- free(min);
-
- slist->size--;
-
- return res;
+ else
+  return NULL;
  //x
 }
 
