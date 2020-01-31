@@ -59,6 +59,7 @@ void run_test1(){
   printf("Queue now empty\n");
   tidy(queue);
 } //run_test1
+
 void run_test2(){
   printf("TEST 2\n");
   PriorityQueue queue = initialize_pq(1);
