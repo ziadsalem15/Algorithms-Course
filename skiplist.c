@@ -140,13 +140,10 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
 bool contains(struct skiplist* slist, Value_Type value, int priority)
 {
   struct node* node = search(slist,priority,NULL)->next[0];
-
   while(node->priority==priority && node->value && compare(node->value,value)!=0){
     node = node->next[0];
   }
   return (node->priority==priority && node->value && compare(node->value,value)==0);
-
-
 }
 
 

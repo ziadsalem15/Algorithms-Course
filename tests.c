@@ -60,20 +60,23 @@ void run_test1(){
   tidy(queue);
 } //run_test1
 
+// test to check whether contains work or not.
+// by inserting an element and checking whether it is already present or not.
 void run_test2(){
   printf("TEST 2\n");
   PriorityQueue queue = initialize_pq(1);
   printf("Initialised...\n");
   insert(queue,"hey",1);
   printf("Inserted hey with priority 1...\n");
-  //contains(queue, "hey",1);
+  contains(queue, "hey",1);
   printf("Checked that queue contains hey with priority 1...\n");
   check_result(2,"hey",pop_min(queue));
   printf("Popped hey...\n");
   assert(2,is_empty(queue)," queue is meant to be empty");
   printf("Queue now empty\n");
   tidy(queue);
-}
+} // run_test2
+
 void run_test3(){
   printf("TEST 3\n");
   PriorityQueue queue = initialize_pq(3);
