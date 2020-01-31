@@ -124,7 +124,7 @@ struct avltree* leftRotate(struct avltree* node)
   l->left = node;
 
   node->depth = max(height(node->left), height(node->right)) + 1;
-  l->depth = max(height(node->right), node->depth) + 1;
+  l->depth = max(height(l->right), node->depth) + 1;
   return l;
 }
 
