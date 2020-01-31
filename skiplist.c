@@ -152,19 +152,15 @@ return 0;
 
 
 Value_Type pop_min(struct skiplist* slist){
-if(slist->size > 0){
  struct node* min = slist->header->next[0];
  Value_Type res = min->value;
 
  // TODO what do we need to do to repair the Skip List
  // to remove the min node? (Hint: what is pointing to min
  // and where should that point?)
- for (int i = 0; i < slist->levels; i++)
+ for (int i = 0; i < min->height; i++)
  {
-   if(slist->header->next[i] == min)
-   {
-     slist->header->next[i] = min->next[i];
-   }
+   slist->header->next[i] = slist->header->next[i]->next[i];
  }
 
  free(min->next);
@@ -173,9 +169,6 @@ if(slist->size > 0){
  slist->size--;
 
  return res;
-}
-else
-  return NULL;
 }
 
 // There are probably nicer ways to print a skiplist
