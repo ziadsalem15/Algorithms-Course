@@ -99,7 +99,7 @@ void run_test4(){
   printf("Inserted Fady with priority 2...\n");
   insert(queue,"Abdo",3);
   printf("Inserted Abdo with priority 3...\n");
-  insert(queue,"Salem",4);
+  insert(queue,"salem",4);
   printf("Inserted salem with priority 4...\n");
 
   check_result(4,"Ziad",pop_min(queue));
