@@ -143,16 +143,7 @@ void run_test5(){
   assert(5,is_empty(queue)," queue is meant to be empty");
   printf("Queue now empty\n");
   tidy(queue);
-}
-
-// trying to pop min while empty and make sure it returns null.
-void run_test6(){
-  printf("TEST 6\n");
-  PriorityQueue queue = initialize_pq(0);
-  printf("Initialised...\n");
-  check_result(6, !pop_min(queue), "There is nth to pop");
-  tidy(queue);
-}
+} //run_test5()
 
 char* prog_name = 0;
 int main (int argc, char *argv[])
@@ -175,7 +166,6 @@ int main (int argc, char *argv[])
    case 3: run_test3(); break;
    case 4: run_test4(); break;
    case 5: run_test5(); break;
-   case 6: run_test6(); break;
    default:
      fprintf(stderr,"Test number %d not recognised\n",test_number);
  }
