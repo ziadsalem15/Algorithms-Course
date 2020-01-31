@@ -127,7 +127,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
     slist->levels = level;
   }
   struct node* new_node = make_node(value, priority, level);
-  for(int i=0;i<slist->levels;i++){
+  for(int i=0;i<level;i++){
     new_node->next[i] = updates[i]->next[i];
     updates[i]->next[i] = new_node;
   }
