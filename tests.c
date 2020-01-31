@@ -43,22 +43,22 @@ void run_test0(){
   printf("Queue now empty\n");
   tidy(queue);
 }
+// Checking whether is_empty() function works or not by
+// checking when it is actually empty and when it is not.
 void run_test1(){
   printf("TEST 1\n");
   PriorityQueue queue = initialize_pq(2);
   printf("Initialised...\n");
+  assert(1,is_empty(queue)," queue is meant to be empty");
   insert(queue,"hi",1);
   printf("Inserted hi with priority 1...\n");
-  insert(queue,"see you later",2);
-  printf("Inserted see you later with priority 2...\n");
+  assert(1,!is_empty(queue)," queue is not meant to be empty");
   check_result(1,"hi",pop_min(queue));
   printf("Popped hi...\n");
-  check_result(1,"see you later",pop_min(queue));
-  printf("Popped see you later...\n");
   assert(1,is_empty(queue)," queue is meant to be empty");
   printf("Queue now empty\n");
   tidy(queue);
-}
+} //run_test1
 void run_test2(){
   printf("TEST 2\n");
   PriorityQueue queue = initialize_pq(1);
