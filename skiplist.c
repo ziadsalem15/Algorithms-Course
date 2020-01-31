@@ -154,7 +154,7 @@ Value_Type pop_min(struct skiplist* slist){
    // for each level we set the
    for (int i = 0; i < slist->levels; i++)
    {
-     slist->header->next[i] = min->next[i];
+     slist->header->next[i] = slist->header->next[i]->next[i];
    }
 
    free(min->next);
