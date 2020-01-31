@@ -150,7 +150,7 @@ void run_test6(){
   printf("TEST 6\n");
   PriorityQueue queue = initialize_pq(1);
   printf("Initialised...\n");
-  check_result(6,NULL,pop_min(queue));
+  check_result(6, !pop_min(queue), "There is nth to pop");
   tidy(queue);
 }
 
