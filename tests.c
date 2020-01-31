@@ -65,7 +65,7 @@ void run_test2(){
   printf("Initialised...\n");
   insert(queue,"hey",1);
   printf("Inserted hey with priority 1...\n");
-  contains(queue, "hey",1)
+  contains(queue, "hey",1);
   printf("Checked that queue contains hey with priority 1...\n");
   check_result(2,"hey",pop_min(queue));
   printf("Popped hey...\n");
