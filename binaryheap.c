@@ -63,6 +63,7 @@ void sift_up(struct binaryHeap *pq, int i) {
      swap(pq, i, parent(i));
      i = parent(i);
    }
+   //for testing
 }
 
 void sift_down(struct binaryHeap *pq, int i) {
