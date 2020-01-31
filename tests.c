@@ -94,7 +94,12 @@ void run_test3(){
   assert(3,is_empty(queue)," queue is meant to be empty");
   printf("Queue now empty\n");
   tidy(queue);
-}
+} // run_test3
+
+// trying to check if pq will extend itself
+// if we added above the size
+// it succceeds and salem is added at pq 4
+// order is reserved when popmin 
 void run_test4(){
   printf("TEST 4\n");
   PriorityQueue queue = initialize_pq(3);
@@ -107,7 +112,6 @@ void run_test4(){
   printf("Inserted Abdo with priority 3...\n");
   insert(queue,"salem",4);
   printf("Inserted salem with priority 4...\n");
-
   check_result(4,"Ziad",pop_min(queue));
   printf("Popped Ziad...\n");
   check_result(4,"Fady",pop_min(queue));
