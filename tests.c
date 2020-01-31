@@ -125,7 +125,7 @@ void run_test4(){
   tidy(queue);
 } // run_test4
 
-// Checking if words are inserted in the correct priority number as inserted 
+// Checking if words are inserted in the correct priority number as inserted
 void run_test5(){
   printf("TEST 5\n");
   PriorityQueue queue = initialize_pq(2);
@@ -134,8 +134,8 @@ void run_test5(){
   printf("Inserted hi with priority 1...\n");
   insert(queue,"see you later",2);
   printf("Inserted see you later with priority 2...\n");
-  !contains(queue, "hi",2)
-  !contains(queue, "see you later",1)
+  !contains(queue, "hi",2);
+  !contains(queue, "see you later",1);
   check_result(5,"hi",pop_min(queue));
   printf("Popped hi...\n");
   check_result(5,"see you later",pop_min(queue));
