@@ -110,7 +110,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   // TODO create a new_node with a random number of levels
   // where the chance of having n levels is 1/2^n e.g. flip
   // a coin for each level. (Hint: use rand())
-  //
+  // as long as rand()%2 is 1 and level is still less than MAX_LEVEL
   int level = 1;
   while((rand() % 2) == 1 && level < MAX_LEVEL)
   {
@@ -131,7 +131,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   }
 
   slist->size++;
-}
+} // insert
 
 bool contains(struct skiplist* slist, Value_Type value, int priority)
 {
@@ -151,9 +151,10 @@ Value_Type pop_min(struct skiplist* slist){
    // TODO what do we need to do to repair the Skip List
    // to remove the min node? (Hint: what is pointing to min
    // and where should that point?)
+   // for each level we set the
    for (int i = 0; i < slist->levels; i++)
    {
-     slist->header->next[i] = slist->header->next[i]->next[i];
+     slist->header->next[i] = min->next[i];
    }
 
    free(min->next);
