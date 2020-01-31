@@ -85,11 +85,12 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
   struct node* node = slist->header;
   int level = MAX_LEVEL;
   while(level >0){
+    level--;
     while(node->next[level] && node->next[level]->priority < priority)
     {
       node = node->next[level];
     }
-    level--;
+
     // TODO we now need to scan along this level until the 'next'
     // priority is not less than the priority we are searching for.
     // (Hint: the next node at this leve is currently in node->next[level])
