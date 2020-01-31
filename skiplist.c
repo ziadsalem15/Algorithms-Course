@@ -86,24 +86,21 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
   int level = MAX_LEVEL;
   while(level >0){
     level--;
+    // TODO we now need to scan along this level until the 'next'
+    // priority is not less than the priority we are searching for.
+    // (Hint: the next node at this leve is currently in node->next[level])
+    // as long as there is a next level and priority of the next level
+    // is less than the priority needed
+    // we set node to the next level
     while(node->next[level] && node->next[level]->priority <= priority)
     {
       node = node->next[level];
     }
-
-    // TODO we now need to scan along this level until the 'next'
-    // priority is not less than the priority we are searching for.
-    // (Hint: the next node at this leve is currently in node->next[level])
-
     // Record the node where we go down at a particular level
     if(updates){updates[level]=node;}
   }
-  /*if(node->next[0]->priority <= priority)
-    return node->next[0];
-  else
-    return node;*/
   return node;
-}
+} // search
 
 void insert(struct skiplist* slist, Value_Type value, int priority){
 
@@ -113,13 +110,13 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   // TODO create a new_node with a random number of levels
   // where the chance of having n levels is 1/2^n e.g. flip
   // a coin for each level. (Hint: use rand())
-
-  int random = rand() % 2;
+  //
+  //int random = rand() % 2;
   int level = 1;
-  while(random != 1 && level < MAX_LEVEL)
+  while((rand() % 2) == 1 && level < MAX_LEVEL)
   {
     level++;
-    random = rand() % 2;
+    //random = rand() % 2;
   }
   if (level > slist->levels)
   {
