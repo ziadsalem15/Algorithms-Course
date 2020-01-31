@@ -102,6 +102,7 @@ struct node* search(struct skiplist* slist, int priority, struct node** updates)
     return node->next[0];
   else
     return node;*/
+  return node;
 }
 
 void insert(struct skiplist* slist, Value_Type value, int priority){
