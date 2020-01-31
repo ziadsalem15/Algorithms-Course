@@ -56,24 +56,13 @@ void swap(struct binaryHeap *pq, int i, int j) {
 
 void sift_up(struct binaryHeap *pq, int i) {
    // TODO implement sift_up (also known as bubble-up and other things)
-   int indexOfParent = parent(i);
-   while(i > 0 && pq->weights[indexOfParent] > pq->weights[i])
+   //int indexOfParent = parent(i);
+   while(i > 0 && pq->weights[parent(i)] > pq->weights[i])
    {
-    indexOfParent = parent(i);
-     swap(pq, i, indexOfParent);
+    //indexOfParent = parent(i);
+     swap(pq, i, parent(i));
      i = parent(i);
    }
-
-/*  if (i == 0);
-    return;
-  if (pq->weights[i] < pq->weights[indexOfParent])
-  {
-    swap(pq, i, indexOfParent);
-    if (indexOfParent != 0)
-    {
-      sift_up(pq, indexOfParent);
-    }
-  }*/
 }
 
 void sift_down(struct binaryHeap *pq, int i) {
