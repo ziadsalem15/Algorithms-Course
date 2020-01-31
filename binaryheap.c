@@ -56,10 +56,10 @@ void swap(struct binaryHeap *pq, int i, int j) {
 
 void sift_up(struct binaryHeap *pq, int i) {
    // TODO implement sift_up (also known as bubble-up and other things)
-   //int indexOfParent = parent(i);
+   // we check that i is bigger than 0 and our node is still less than parent
+   // we keep swapping with parent until conditions are not met or we reach the root
    while(i > 0 && pq->weights[parent(i)] > pq->weights[i])
    {
-    //indexOfParent = parent(i);
      swap(pq, i, parent(i));
      i = parent(i);
    }
@@ -122,6 +122,7 @@ void expand(struct binaryHeap *pq)
 int last_idx(struct binaryHeap  *pq) {
     // TODO the last is only 0 at the very start
     //      fix this to set last to the last index of pq
+    // set last to the end at the size of pq
     int last = pq->heap_size;
     // if we ever query outside the heap just expand it
     if(last >= pq->num_elem){
@@ -136,6 +137,7 @@ void insert(struct binaryHeap *pq, Value_Type u, int w) {
     pq->elements[li]=u;
 
     //TODO there is something missing here, put it back
+    // Call sift_up to adjust pq after inserting a new node
     sift_up(pq, li);
     pq->heap_size++;
 }
