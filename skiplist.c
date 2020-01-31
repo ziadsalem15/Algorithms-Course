@@ -119,7 +119,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
   {
     for (int i = slist->levels; i < level; i++)
     {
-      updates[i] = slist->header
+      updates[i] = slist->header;
     }
     slist->levels = level;
   }
