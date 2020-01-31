@@ -115,7 +115,7 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
 
 
   int level = 1;
-  while(rand()%2 ==1 && level < MAX_LEVEL)
+  while(rand() % 2 == 1 && level < MAX_LEVEL)
   {
     level++;
   }
@@ -139,15 +139,19 @@ void insert(struct skiplist* slist, Value_Type value, int priority){
 bool contains(struct skiplist* slist, Value_Type value, int priority)
 {
   struct node* node = search(slist,priority,NULL)->next[0];
+  if(node){
   while(node->priority==priority && node->value && compare(node->value,value)!=0){
     node = node->next[0];
   }
   return (node->priority==priority && node->value && compare(node->value,value)==0);
 }
+else
+return 0;
+}
 
 
 Value_Type pop_min(struct skiplist* slist){
-
+if(slist->size > 0){
  struct node* min = slist->header->next[0];
  Value_Type res = min->value;
 
@@ -168,6 +172,9 @@ Value_Type pop_min(struct skiplist* slist){
  slist->size--;
 
  return res;
+}
+else
+  return NULL;
 }
 
 // There are probably nicer ways to print a skiplist
