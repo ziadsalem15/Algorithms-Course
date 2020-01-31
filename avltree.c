@@ -119,13 +119,14 @@ struct avltree* rightRotate(struct avltree* node)
 struct avltree* leftRotate(struct avltree* node)
 {
   // TODO implement a left rotationss
-  struct avltree* l = node->right;
-  node->right = l->left;
-  l->left = node;
-
+  // It is a mirror for the already implemented rightRotate
+  // 
+  struct avltree* r = node->right;
+  node->right = r->left;
+  r->left = node;
   node->depth = max(height(node->left), height(node->right)) + 1;
-  l->depth = max(height(l->right), node->depth) + 1;
-  return l;
+  r->depth = max(height(r->right), node->depth) + 1;
+  return r;
 }
 
 int getBalance(struct avltree* node)
