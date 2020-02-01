@@ -74,6 +74,10 @@ size_t graph_get_num_nodes(graph_t const *g);
  * Thus, iteration over successors can either be done by indexing "begin[i]",
  * or by incrementing the pointer until it is ==end.
  *
+ * For example, the following code snippet iterates over all successors of node u in graph g
+ *
+ *   for (edge_tgt_t const *tgt=graph_succs_begin(g,u);tgt!=graph_succs_end(g,u);++tgt) { / * use tgt->v and tgt->w to access target node and edge weight * / }
+ *
  */
 typedef struct {
     weight_t w; /// Edge weight
