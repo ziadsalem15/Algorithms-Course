@@ -70,8 +70,8 @@ weight_t weight_add(weight_t a, weight_t b) {
   } else if (weight_is_neg_inf(b)) {
     return weight_neg_inf();
   } else {
-    signed long res;
-    if (__builtin_add_overflow(a.__w,b.__w,&res)) error("Weight overflow");
+    signed long res = a.__w + b.__w; // Not using __builtin_add_overflow as ancient compiler on lab machines does not support it.
+//     if (__builtin_add_overflow(a.__w,b.__w,&res)) error("Weight overflow");
     return weight_of_int(res);
   }
 }
@@ -88,8 +88,8 @@ weight_t weight_sub(weight_t a, weight_t b) {
   } else if (weight_is_neg_inf(b)) {
     return weight_inf();
   } else {
-    signed long res;
-    if (__builtin_sub_overflow(a.__w,b.__w,&res)) error("Weight overflow");
+    signed long res = a.__w - b.__w; // Not using __builtin_sub_overflow as ancient compiler on lab machines does not support it.
+//     if (__builtin_sub_overflow(a.__w,b.__w,&res)) error("Weight overflow");
     return weight_of_int(res);
   }
 }
