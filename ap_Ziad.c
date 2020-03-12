@@ -63,6 +63,7 @@ weight_t* getH(graph_t const *g, node_t dist_node)
     }
   }
   return h;
+
 }
 void compute_route(char const *algo, char const *scode, char const *dcode) {
   node_t s=ap_get_id(scode);

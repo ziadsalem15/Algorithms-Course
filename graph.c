@@ -75,7 +75,7 @@ void succs_add(succs_t *s, edge_tgt_t tgt) {
 struct _graph_t {
     size_t num_nodes;
     succs_t *adjs;
-};
+}_graph_t;
 
 // Graph
 void graph_init(graph_t *g, size_t num_nodes) {
@@ -217,10 +217,3 @@ path_t *path_from_pred(node_t const *pred, node_t v) {
 
   return p;
 }
-
-
-
-
-
-
-

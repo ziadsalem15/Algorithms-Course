@@ -414,7 +414,7 @@ void check_sssp_result(graph_t const *g, node_t src, sssp_result_t const *r) {
         assertmsg(weight_is_finite(ew),"Pred over non-edge: %zu -> %zu (w=%ld)",pu,u,w[pu][u].__w);
         weight_t rd = weight_add(r->dist[pu],ew); // Relax distance for node u
 
-        assert(weight_eq( rd, r->dist[u])); // Estimates for edges on shortest path must be precise
+        assert(weight_eq(rd, r->dist[u])); // Estimates for edges on shortest path must be precise
 
       }
     } else {
@@ -665,14 +665,3 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-
-
-
-
-
-
-
-
-
-
-

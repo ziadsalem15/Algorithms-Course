@@ -91,7 +91,4 @@ void DPQ_decrease_key(DPQ_t *pq, node_t u, weight_t w);
 weight_t *DPQ_dist_free(DPQ_t *pq);
 
 
-
 #endif
-
-

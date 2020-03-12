@@ -109,4 +109,3 @@ size_t path_len(path_t const *p);
 path_t *path_from_pred(node_t const *pred, node_t v);
 
 #endif
-
