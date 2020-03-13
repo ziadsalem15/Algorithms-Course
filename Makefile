@@ -6,7 +6,7 @@
 #
 
 # define the C compiler to use
-CC = gcc
+CC = gcc -std=c99
 
 # define any compile-time flags
 CFLAGS = -Wall -g -D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED
