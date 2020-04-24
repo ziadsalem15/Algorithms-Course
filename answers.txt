@@ -1,0 +1,110 @@
+################################## Task 3B: Greedy Algorithm ############################################
+
+##############################################################################
+##############################################################################
+1] For large instances, you cannot use enumeration. Why? How large an instance do you think you can solve
+on the lab PCs using enumeration? (An accurate answer is not needed, so you can assume that one evaluation
+of a solution takes 1 microsecond, you do not need to run anything, this question is a thought exercise)
+
+A:: In enumeration, to find the solution we need to generate every subset of the set of items.
+The number of subsets is 2^n where n is number of items. So the time complexity is 2^n as we need
+to go over each subset to get the optimal solution with the highest value with weight less than or
+equal to the knapsack.
+
+Assuming each evaluation of a solution takes 1 microsecond:
+*****  0.001 sec to find a solution for 10 items
+*****  0.004 sec to find a solution for 12 items
+*****  0.016 sec to find a solution for 14 items
+*****  0.066 sec to find a solution for 16 items
+*****  0.262 sec to find a solution for 18 items
+*****  1.049 sec to find a solution for 20 items
+
+##############################################################################
+##############################################################################
+2] Run the other three algorithms on the following knapsack problem instances and note what happens.
+      easy.200.4.txt
+      hard1.200.11.txt
+      hard1.2000.1.txt
+
+A:: ===========================================
+    Running on easy.200.4.txt for 5 seconds
+    ===========================================
+
+    Algorithm |      Optimal Value       | Time Taken  | Result
+    ----------------------------------------------------------------
+    enum      | -                        | 0m5.023s    | No
+    bnb       | 4077                     | 0m0.015s    | Yes
+    dp        | 4077                     | 0m0.021s    | Yes
+    greedy    | 4075                     | 0m0.015s    | ?
+
+
+    ===========================================
+    Running on hard1.200.11.txt for 60 seconds
+    ===========================================
+
+    Algorithm |      Optimal Value       | Time Taken  | Result
+    ----------------------------------------------------------------
+    enum      | -                        | 1m0.016s    | No
+    bnb       | -                        | 0m11.078s    | No
+    dp        | 126968                   | 0m0.227s    | Yes
+    greedy    | 126575                   | 0m0.011s    | ?
+
+
+    ===========================================
+    Running on hard1.2000.1.txt for 60 seconds
+    ===========================================
+
+    Algorithm |      Optimal Value       | Time Taken  | Result
+    ----------------------------------------------------------------
+    enum      | -                        | 1m0.012s    | Yes
+    bnb       | -                        | 1m0.039s    | Yes
+    dp        | 1205259                  | 0m18.070s    | No
+    greedy    | 1205167                  | 0m0.028s    | ?
+
+##############################################################################
+
+Which instances does greedy solve optimally? Does dynamic programming work on all instances? and why/why not? Does branch-and-bound come to a stop on all instances?
+
+A:: It doesn't solve any instances optimally, I proved that in greedy.txt
+that its not always optimal.
+
+Yes it works on all instances in the given files and gives in less than minute the optimal solution.
+As the problem gets harder , the time constraint is made higher to provide an output.
+
+No it doesn't even after the time constraint is higher.
+
+##############################################################################
+##############################################################################
+3] Can you explain WHY the hard1 instances are easy or hard (cause problems) for
+(i) greedy,
+(ii) branch-and-bound and
+(iii) dynamic programming? This question is quite tough. Do not attempt it if you are running out of time.
+
+A:: What differs the easy and hard files that the weights and capacity are higher in hard ones.
+So, for :
+  i] Greedy Algorithm: if we take files with the same size like easy.200 & hard.200. The algorithm will sort items
+  in descending value to weight ratio then we start adding to the Knapsack. for every item we check weight if it
+  exceeds we go to the next one. Hence, it menas the algo doesn't get affected with how big the weights or the knapsack is.
+  We can see this by checking the time taken which is the same for easy and hard.
+
+  ii] Branch and Bound : For bnb the hard files are harder then the easy ones. There are more feasible combinations
+  to try on the algo so the queue may become full if we keep adding to it where if this happens so we the insert function fail.
+  Changing the size of queue will use a lot of memory and we will also be waiting for quite a long time to get the
+  optimal solution.
+
+  iii] Dynamic Programming: Due to the fact we have a time complexity of O(N * W)(W is capacity and N is number of items) so this gives us
+  the conclusion that time is affected by the capacity. Also hard instances can be hard for dynamic programming due to memory
+  issues maybe or many swaps with the disk. The running time with easy.200  is 0.021s while hard.200 is 0.227s
+
+##############################################################################
+##############################################################################
+4] The airline has problems of size 500-2000 of similar type to the hard1 instances.
+Which algorithm(s) do you recommend using and why? What should they do in case the algorithm runs out of time?
+
+A:: Branch&Bound will not work well as shown in the experiment above where it doesn't perform good with this data.
+I recommend using dynamic programming ff we are looking for accurate solution. The time complexity is O(W * N) so if
+it will be run before takeoff time is not of much importance(about 1 minute to finish). But if we are looking about the fastest it
+will be the Greedy one (O(n)) but it may not be the optimal option.
+
+##############################################################################
+##############################################################################

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
+=======
 
+>>>>>>> Add scripts and README
 The repository for COMP26120 for AY 2019/2020
 
 This repository contains a branch for each exercise and some helpful scripts. See the comments at the start of each script for what they do.

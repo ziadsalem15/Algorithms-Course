@@ -1,0 +1,24 @@
+################################## Task 1B: Dynamic Programming ############################################
+Q :: Write a description as to why the 0/1 Knapsack Problem has the three necessary properties?
+
+A :: Simple Subproblem: it is the way of breaking down global optimisation problem into
+smaller sub ones that can be treaded individually. They all have similar properties.
+In the code we have item_weights, item_values, temp_indexes where these are an effective
+way to deal with sub problems. Each item(base case) will be included in the optimal subset
+or maybe not. So, we considered all the indices before the current one(smaller subproblem) as shown by V[i-1, w].
+
+Subproblem Optimality: To take into account all subsets of items (should give us  an optimal solution to the problem)
+, there are two cases which are whether the the item is included in the optimal subset or no. Having an instance in
+which the optimal solution to the whole problem is suboptimal can't be done. So as a result
+the max value is either obtained by n - 1 items and W weight or Value of nth item
+plus max value obtained by n - 1 items and W minus weight of the nth item. If the
+weight of nth item is greater than W, then the nth item cannot be included and case
+1 is the only possibility.
+
+Subproblem Overlap: It means that subproblems may be identical to each other. Knapsack function computes the same
+subproblem more than once. The efficiency improve as you don't have to find a solution for same subproblem
+twice where whenever you encounter it again the solution will be already there and ready.
+
+Conclusion: V[i, w] contains all the sub problems and keep[i, w] where using 0,1 it is specified which of them will
+be included in the optimal solution. the optimal solution will be when we have the maximum combined weight with highest
+value below the weight of knapsack. 

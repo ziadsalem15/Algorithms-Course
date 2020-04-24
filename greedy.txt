@@ -1,0 +1,18 @@
+################################## Task 3A: Greedy Algorithm ############################################
+Explain why a greedy approach is not necessarily optimal for 0/1
+and state with explanation whether it is optimal for the fractional case?
+
+*** 0/1 Knapsack: For Greedy Algorithm we first sort according to profit and weight ratio
+then we keep adding the biggest values where the total weight is less than the Knapsack
+weight and we skip some items in between if doesn't fit and keep iterating over the NITEMS
+So, we may reach a point where no any item fit but there are still space left and we
+can't cut off items so the choice made by greedy Algorithm may depend on choices
+it has made so far, but it is not aware of future choices it could make.
+
+It is optimal for fractional knapsack. The proof of this theorem uses an exchange argument to
+show that the greedy method works to solve this problem optimally. The general structure
+of such an argument is a proof by contradiction, where we assume, for the sake of reaching a
+contradiction, that there is a better solution than one found by the greedy algorithm.
+We then argue that there is an exchange that we could make among the components of
+this solution that would lead to a better solution. In this case, this approach shows
+that the greedy method can effectively be used to solve the fractional knapsack problem.

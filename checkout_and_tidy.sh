@@ -18,7 +18,11 @@ fi
 # A cheap test to check that you commit before changing branch
 # Note that this won't detect all weird states you can get your
 # repository into!
+<<<<<<< HEAD
 if [ -z "$(git status -uno --porcelain)" ];
+=======
+if [ -n "$(git status -uno --porcelain)" ];
+>>>>>>> Add scripts and README
 then
     echo "Getting $1"
     ./tidy.sh
@@ -26,7 +30,11 @@ then
     ./refresh.sh
 else
     echo "Commit your changes first!"
+<<<<<<< HEAD
     git status
+=======
+    echo git status
+>>>>>>> Add scripts and README
 fi
 
 

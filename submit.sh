@@ -20,5 +20,9 @@ git push origin :refs/tags/"${TAG}"
 
 # add tag and push
 git tag "${TAG}"
+<<<<<<< HEAD
+git push
+=======
+>>>>>>> Add scripts and README
 git push origin "${TAG}"
 
