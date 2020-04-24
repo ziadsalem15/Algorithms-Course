@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script will tag your last commit with '<branch-name>_solution' and push this. 
+# This script will tag your last commit with '<branch-name>_solution' and push this.
 # If a previous tag of this name exists it will be deleted locally and remotely first.
 #
 # If submission is not working then you can try logging into Gitlab and clearing tags via the interface
@@ -20,9 +20,8 @@ git push origin :refs/tags/"${TAG}"
 
 # add tag and push
 git tag "${TAG}"
-<<<<<<< HEAD
+<<<< HEAD
 git push
 =======
->>>>>>> Add scripts and README
+>>>> Add scripts and README
 git push origin "${TAG}"
-
