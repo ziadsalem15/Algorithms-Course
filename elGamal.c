@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <string.h>
+#include <stdarg.h>
+#include <math.h>
+#include <fenv.h>
+#include <time.h>
 
 unsigned long hcf(unsigned long a, unsigned long b) {
     if(b==0) {
@@ -50,7 +56,7 @@ int main(int argc, char **argv) {
     char choice;
     prime=65537;
     primativeRoot=3;
-
+    char bra, bra1, comma;
     printf("Prime modulus is %lu\n", prime);
     printf("Primitive root wrt %lu is %lu\n", prime, primativeRoot);
 
@@ -73,11 +79,13 @@ int main(int argc, char **argv) {
                 random=rand()%(prime-1)+1;
                 a=fme(primativeRoot, random, prime);
                 b=(message*fme(returnOfMethods, random, prime))%prime;
-                printf("The encrypted secret is: (%lu, %lu)\n", a, b);
+                printf("The encrypted secret is: (%lu,%lu)\n", a, b);
                 break;
             case 'd':
                 printf("Type the recieved message in the form (a,b): ");
-                scanf("%lu %lu", &a, &b);
+                //scanf("%s%lu%s%lu%s", &bra, &a, &comma, &b, &bra1);
+                //scanf( "( %lu,%lu)",&a,&b);
+                scanf(" (%lu,%lu)",&a, &b);
                 printf("Type in your private key: ");
                 scanf("%lu", &power);
                 sInv=imp(a, prime);
