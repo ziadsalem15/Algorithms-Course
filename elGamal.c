@@ -44,10 +44,13 @@ unsigned long imp(unsigned long y, unsigned long p) {
   if (g != 1)
   {
     printf("The modular inverse doesn't exist\n");
+    return 0;
   }
   else
   {
+    unsigned long answer = fme(y, p-2, p);
     printf("The modular multiplicative inverse is %1lu\n", fme(y, p-2, p));
+    return answer;
   }
 }
 

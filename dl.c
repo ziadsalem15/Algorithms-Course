@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 /* This method returns the discrete log, i.e. the value of x for which y=g^x mod p. */
 
