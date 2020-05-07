@@ -39,19 +39,9 @@ unsigned long fme(unsigned long g, unsigned long x, unsigned long p) {
 /* This method returns inverse modulo prime, i.e. the value of x for which
  * x.y `= 1 mod p.
  */
-unsigned long imp(unsigned long y, unsigned long p) {
-  unsigned long g = hcf(y, p);
-  if (g != 1)
-  {
-    printf("The modular inverse doesn't exist\n");
-    return 0;
-  }
-  else
-  {
-    unsigned long answer = fme(y, p-2, p);
-    printf("The modular multiplicative inverse is %1lu\n", fme(y, p-2, p));
-    return answer;
-  }
+unsigned long imp(unsigned long y, unsigned long p)
+{
+    return fme(y, p-2, p);
 }
 
 int main(int argc, char **argv) {
@@ -90,9 +80,9 @@ int main(int argc, char **argv) {
                 scanf("%lu %lu", &a, &b);
                 printf("Type in your private key: ");
                 scanf("%lu", &power);
-                s=fme(a, power, prime);
                 sInv=imp(s, prime);
-                message=(sInv*b)%prime;
+                s=fme(sInv, power, prime);
+                message=(s*b)%prime;
                 printf("The decrypted secret is: %lu\n", message);
                 break;
             case 'x':
