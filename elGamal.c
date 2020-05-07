@@ -80,9 +80,11 @@ int main(int argc, char **argv) {
                 scanf("%lu %lu", &a, &b);
                 printf("Type in your private key: ");
                 scanf("%lu", &power);
-                sInv=imp(s, prime);
+//                power = 40000;
+                sInv=imp(a, prime);
                 s=fme(sInv, power, prime);
                 message=(s*b)%prime;
+                //message = 10;
                 printf("The decrypted secret is: %lu\n", message);
                 break;
             case 'x':

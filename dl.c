@@ -23,6 +23,7 @@ unsigned long dl(unsigned long y, unsigned long g, unsigned long p) {
         if (answer < p)
         {
           return answer;
+          printf("%s\n", answer);
         }
       }
     }
