@@ -5,6 +5,7 @@
 /* This method returns the discrete log, i.e. the value of x for which y=g^x mod p. */
 
 unsigned long dl(unsigned long y, unsigned long g, unsigned long p) {
+
     unsigned long n = ((unsigned long) sqrt(p)) + 1;
     unsigned long values[p];
     for (int i = n; i >= 1; i--)
