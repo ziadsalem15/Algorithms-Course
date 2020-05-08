@@ -56,7 +56,6 @@ int main(int argc, char **argv) {
     char choice;
     prime=65537;
     primativeRoot=3;
-    char bra, bra1, comma;
     printf("Prime modulus is %lu\n", prime);
     printf("Primitive root wrt %lu is %lu\n", prime, primativeRoot);
 
@@ -83,8 +82,6 @@ int main(int argc, char **argv) {
                 break;
             case 'd':
                 printf("Type the recieved message in the form (a,b): ");
-                //scanf("%s%lu%s%lu%s", &bra, &a, &comma, &b, &bra1);
-                //scanf( "( %lu,%lu)",&a,&b);
                 scanf(" (%lu,%lu)",&a, &b);
                 printf("Type in your private key: ");
                 scanf("%lu", &power);
