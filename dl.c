@@ -31,24 +31,11 @@ unsigned long fme(unsigned long g, unsigned long x, unsigned long p) {
     return s;
 }
 unsigned long dl(unsigned long y, unsigned long g, unsigned long p) {
-
-    unsigned long n = ((unsigned long) sqrt(p)) + 1;
-    unsigned long values[p];
-    for (int i = n; i >= 1; i--)
+    for (unsigned long i = 1; i < p; i++)
     {
-      values[fme(y, i*n, p)] = i;
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-      unsigned long curr = (fme(y, i, p) * g) % p;
-      if (values[curr] > 0)
+      if (fme(g, i, p) == y)
       {
-        unsigned long answer = values[curr] * n - i;
-        if (answer < p)
-        {
-          return answer;
-        }
+        return i;
       }
     }
     return 0;
